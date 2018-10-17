@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using MediaInfo;
 
 namespace Winmedia_Database_Client
 {
@@ -48,6 +49,16 @@ namespace Winmedia_Database_Client
                 String json = JsonConvert.SerializeObject(config);
                 File.WriteAllText(filepath, json);
             }
+
+            /// Get Media Info
+            MediaInfo.MediaInfo MI = new MediaInfo.MediaInfo();
+            MI.Open("./test.flac");
+            int duration = Convert.ToInt32(MI.Get(StreamKind.Audio, 0, "Duration"))/1000;
+            int fileLength = Convert.ToInt32(MI.Get(0, 0, "FileSize"));
+            int second = duration % 60;
+            int minute = duration / 60;
+            Debug.WriteLine("File length: " + fileLength);
+            Debug.WriteLine("Duration: " + minute + " min " + second + " s");
             
         }
     }
