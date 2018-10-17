@@ -22,7 +22,9 @@ namespace Winmedia_Database_Client
         {
             Config.Init();
 
-            
+            DBHelper.connect();
+            DBHelper.getData();
+            DBHelper.disconnect();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Winmedia_Database_Client
 
         private static String _VlcPath;
         private static String _DBHost;
-        private static Int32 _DBPort;
+        private static String _DBPort;
         private static String _DBUser;
         private static String _DBPass;
         private static String _DB;
@@ -33,7 +33,7 @@ namespace Winmedia_Database_Client
             set { _DBHost = value; }
         }
 
-        public static Int32 DBPort
+        public static String DBPort
         {
             get { return _DBPort; }
             set { _DBPort = value; }
@@ -88,6 +88,11 @@ namespace Winmedia_Database_Client
                     else
                     {
                         _VlcPath = items["VlcPath"];
+                        _DBHost = items["DBHost"];
+                        _DBPort = items["DBPort"];
+                        _DBUser = items["DBUser"];
+                        _DBPass = items["DBPass"];
+                        _DB = items["DB"];
                     }
                 }
             }
