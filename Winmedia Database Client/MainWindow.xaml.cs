@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,23 @@ namespace Winmedia_Database_Client
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Rectangle_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach(var file in files){
+                    Debug.WriteLine(file);
+                }
+                
+            }
+        }
+
+        private void Rectangle_DragEnter(object sender, DragEventArgs e)
+        {
+
         }
     }
 }
