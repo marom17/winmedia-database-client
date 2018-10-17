@@ -22,15 +22,6 @@ namespace Winmedia_Database_Client
         {
             Config.Init();
 
-            /// Get Media Info
-            MediaInfo.MediaInfo MI = new MediaInfo.MediaInfo();
-            MI.Open("./test.flac");
-            int duration = Convert.ToInt32(MI.Get(StreamKind.Audio, 0, "Duration"))/1000;
-            int fileLength = Convert.ToInt32(MI.Get(0, 0, "FileSize"));
-            int second = duration % 60;
-            int minute = duration / 60;
-            Debug.WriteLine("File length: " + fileLength);
-            Debug.WriteLine("Duration: " + minute + " min " + second + " s");
             
         }
     }

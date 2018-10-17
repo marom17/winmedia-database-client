@@ -32,6 +32,19 @@ namespace Winmedia_Database_Client
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach(var file in files){
+                    bool formatOk = false;
+                    foreach(var fm in Config.Format)
+                    {
+                        if (file.Contains(fm))
+                        {
+                            formatOk = true;
+                        }
+                    }
+                    if (formatOk)
+                    {
+                        Debug.WriteLine("Start Transcoding");
+                        Transcoder.Encode(file);
+                    }
                     Debug.WriteLine(file);
                 }
                 

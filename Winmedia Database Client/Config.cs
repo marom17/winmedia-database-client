@@ -19,6 +19,7 @@ namespace Winmedia_Database_Client
         private static String _DBUser;
         private static String _DBPass;
         private static String _DB;
+        private static String[] _format = { ".mp3",".flac",".mp2",".wav"};
 
         public static String VlcPath
         {
@@ -56,6 +57,11 @@ namespace Winmedia_Database_Client
             set { _DB = value; }
         }
 
+        public static String[] Format
+        {
+            get { return _format; }
+        }
+
         public static void Init()
         {
             String newConfig = String.Empty;
@@ -78,6 +84,10 @@ namespace Winmedia_Database_Client
                             File.WriteAllText(_confPath, json);
 
                         }
+                    }
+                    else
+                    {
+                        _VlcPath = items["VlcPath"];
                     }
                 }
             }

@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AudioInfo.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="Transcoder.cs" />
     <Page Include="MainWindow.xaml">
