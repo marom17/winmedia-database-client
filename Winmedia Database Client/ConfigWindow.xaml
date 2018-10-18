@@ -50,7 +50,7 @@
             <Label Grid.Column="0" Grid.Row="3" Content="DB User:" VerticalAlignment="Center"/>
             <Label Grid.Column="0" Grid.Row="4" Content="DB Pass:" VerticalAlignment="Center"/>
             <Label Grid.Column="0" Grid.Row="5" Content="DB Table:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="6" Content="DB Default Save:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="6" Content="Category:" VerticalAlignment="Center"/>
 
             <TextBox Grid.Column="1" Grid.Row="0" Name="VLCPath"/>
             <Button Grid.Column="2" Grid.Row="0" Content="Search..." x:Name="SearchVLC" Click="SearchVLC_Click" HorizontalAlignment="Right"/>
@@ -58,8 +58,8 @@
             <TextBox Grid.Column="1" Grid.Row="2" Name="DBPort"/>
             <TextBox Grid.Column="1" Grid.Row="3" Name="DBUser"/>
             <PasswordBox Grid.Column="1" Grid.Row="4" Name="DBPass"/>
-            <TextBox Grid.Column="1" Grid.Row="5" Name="DBTable"/>
-            <TextBox Grid.Column="1" Grid.Row="6" Name="DBDefaultTab"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Name="DB"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Name="Category"/>
             <TabControl Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="751.6,40.2,-702,-99.4" Grid.Row="6" VerticalAlignment="Top" Width="100">
                 <TabItem Header="TabItem">
                     <Grid Background="#FFE5E5E5"/>

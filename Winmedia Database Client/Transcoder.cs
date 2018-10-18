@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,13 @@ namespace Winmedia_Database_Client
 
         public static void Encode(String path)
         {
-            String dest = "./test.sam";
+            var md5 = MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(DateTime.Now.ToString());
+            var hash = md5.ComputeHash(inputBytes);
+            var fileName = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant() + ".sam";
+
+            String dest = Config.FilePath + fileName;
+            Debug.WriteLine(dest);
 
             String arg = _options[0] + path + _options[1] + dest + _options[2];
 
@@ -27,8 +34,6 @@ namespace Winmedia_Database_Client
             start.WindowStyle = ProcessWindowStyle.Hidden;
             start.CreateNoWindow = true;
             int exitCode;
-
-            Debug.WriteLine(Config.VlcPath);
 
             // Run the external process & wait for it to finish
             using (Process proc = Process.Start(start))

@@ -12,7 +12,8 @@ namespace Winmedia_Database_Client
 {
     class Config
     {
-        private static String _confPath = "./config";
+        private static String _confPath = @"./config";
+        private static String _FilePath = @"./import/";
 
         private static String _VlcPath;
         private static String _DBHost;
@@ -20,6 +21,8 @@ namespace Winmedia_Database_Client
         private static String _DBUser;
         private static String _DBPass;
         private static String _DB;
+        private static String _Category;
+        
         private static String[] _format = { ".mp3",".flac",".mp2",".wav"};
 
         public static String VlcPath
@@ -58,6 +61,18 @@ namespace Winmedia_Database_Client
             set { _DB = value; }
         }
 
+        public static String Category
+        {
+            get { return _Category; }
+            set { _Category = value; }
+        }
+
+        public static String FilePath
+        {
+            get { return _FilePath; }
+            set { _FilePath = value; }
+        }
+
         public static String[] Format
         {
             get { return _format; }
@@ -93,6 +108,7 @@ namespace Winmedia_Database_Client
                 config.Add("DBUser", "");
                 config.Add("DBPass", "");
                 config.Add("DB", "");
+                config.Add("Category", "");
 
                 ConfigWindow test = new ConfigWindow();
                 test.Show();
@@ -109,7 +125,8 @@ namespace Winmedia_Database_Client
             _DBPort = configWindow.DBPort.Text;
             _DBUser = configWindow.DBUser.Text;
             _DBPass = configWindow.DBPass.Password;
-            _DB = configWindow.DBTable.Text;
+            _DB = configWindow.DB.Text;
+            _Category = configWindow.Category.Text;
 
             Dictionary<String, String> config = new Dictionary<string, string>();
             config.Add("VlcPath", _VlcPath);
@@ -118,6 +135,7 @@ namespace Winmedia_Database_Client
             config.Add("DBUser", _DBUser);
             config.Add("DBPass", _DBPass);
             config.Add("DB", _DB);
+            config.Add("Category", _Category);
 
             String json = JsonConvert.SerializeObject(config);
             File.WriteAllText(_confPath, json);

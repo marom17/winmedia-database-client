@@ -21,6 +21,9 @@ namespace Winmedia_Database_Client
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private ConfigWindow _cfgWin;
+        private ImportWindow _imWin;
         public MainWindow()
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace Winmedia_Database_Client
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                List<String> toImport = new List<string>();
                 foreach(var file in files){
                     bool formatOk = false;
                     foreach(var fm in Config.Format)
@@ -42,11 +46,11 @@ namespace Winmedia_Database_Client
                     }
                     if (formatOk)
                     {
-                        Debug.WriteLine("Start Transcoding");
-                        Transcoder.Encode(file);
+                        toImport.Add(file);                        
                     }
-                    Debug.WriteLine(file);
                 }
+
+                _imWin = new ImportWindow(toImport);
                 
             }
         }
@@ -58,7 +62,7 @@ namespace Winmedia_Database_Client
 
         private void ConfigBut_Click(object sender, RoutedEventArgs e)
         {
-            ConfigWindow cfgWin = new ConfigWindow();
+            _cfgWin = new ConfigWindow();
         }
     }
 }

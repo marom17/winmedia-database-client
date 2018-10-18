@@ -28,7 +28,7 @@ namespace Winmedia_Database_Client
             this.DBPort.Text = Config.DBPort;
             this.DBUser.Text = Config.DBUser;
             this.DBPass.Password = Config.DBPass;
-            this.DBTable.Text = Config.DB;
+            this.DB.Text = Config.DB;
 
             this.Show();
         }
