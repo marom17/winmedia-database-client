@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -73,27 +74,14 @@ namespace Winmedia_Database_Client
                     var config = r.ReadToEnd();
                     Dictionary<String, String> items = JsonConvert.DeserializeObject<Dictionary<String, String>>(config);
                     r.Close();
-                    if (items["VlcPath"] == "")
-                    {
-                        OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.Filter = "VLC|vlc.exe";
-                        if (openFileDialog.ShowDialog() == true)
-                        {
-                            items["VlcPath"] = openFileDialog.FileName;
-                            String json = JsonConvert.SerializeObject(items);
-                            File.WriteAllText(_confPath, json);
 
-                        }
-                    }
-                    else
-                    {
-                        _VlcPath = items["VlcPath"];
-                        _DBHost = items["DBHost"];
-                        _DBPort = items["DBPort"];
-                        _DBUser = items["DBUser"];
-                        _DBPass = items["DBPass"];
-                        _DB = items["DB"];
-                    }
+                    _VlcPath = items["VlcPath"];
+                    _DBHost = items["DBHost"];
+                    _DBPort = items["DBPort"];
+                    _DBUser = items["DBUser"];
+                    _DBPass = items["DBPass"];
+                    _DB = items["DB"];
+                    
                 }
             }
             catch (FileNotFoundException)
@@ -106,9 +94,33 @@ namespace Winmedia_Database_Client
                 config.Add("DBPass", "");
                 config.Add("DB", "");
 
+                ConfigWindow test = new ConfigWindow();
+                test.Show();
+
                 String json = JsonConvert.SerializeObject(config);
                 File.WriteAllText(_confPath, json);
             }
+        }
+
+        public static void saveConfig(ConfigWindow configWindow)
+        {
+            _VlcPath = configWindow.VLCPath.Text;
+            _DBHost = configWindow.DBHost.Text;
+            _DBPort = configWindow.DBPort.Text;
+            _DBUser = configWindow.DBUser.Text;
+            _DBPass = configWindow.DBPass.Password;
+            _DB = configWindow.DBTable.Text;
+
+            Dictionary<String, String> config = new Dictionary<string, string>();
+            config.Add("VlcPath", _VlcPath);
+            config.Add("DBHost", _DBHost);
+            config.Add("DBPort", _DBPort);
+            config.Add("DBUser", _DBUser);
+            config.Add("DBPass", _DBPass);
+            config.Add("DB", _DB);
+
+            String json = JsonConvert.SerializeObject(config);
+            File.WriteAllText(_confPath, json);
         }
     }
 }

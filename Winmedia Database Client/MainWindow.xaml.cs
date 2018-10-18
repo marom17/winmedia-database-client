@@ -55,5 +55,10 @@ namespace Winmedia_Database_Client
         {
 
         }
+
+        private void ConfigBut_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigWindow cfgWin = new ConfigWindow();
+        }
     }
 }
