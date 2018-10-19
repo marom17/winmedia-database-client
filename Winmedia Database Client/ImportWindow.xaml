@@ -6,7 +6,20 @@
         xmlns:local="clr-namespace:Winmedia_Database_Client"
         mc:Ignorable="d"
         Title="Import" Height="450" Width="800">
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="5,5,5,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -14,7 +27,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Name="MusicReview">
+        <Grid Grid.Row="0" Grid.Column="0" Name="MusicReview" Width="380">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -29,12 +42,14 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="1" Name="DataReview">
+        <Grid Grid.Row="0" Grid.Column="1" Name="DataReview" Width="380">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -55,9 +70,10 @@
             <TextBox Grid.Column="1" Grid.Row="4" Name="Intro"/>
             <Label Grid.Column="0" Grid.Row="5" Content="Next:"/>
             <TextBox Grid.Column="1" Grid.Row="5" Name="Next"/>
-            
-            <Button Grid.Row="7"  Name="ImportBtn" Click="ImportBtn_Click" Content="Import" Grid.Column="1" Padding="5,5,5,5"/>
+            <Button Grid.Row="6" Name="SaveBnt" Click="SaveBnt_Click"  Content="Save" Grid.Column="1" Padding="5,5,5,5" Margin="0,20,0,0"/>
+
+            <Button Grid.Row="8" Name="ImportBtn" Click="ImportBtn_Click" Content="Import" Grid.Column="1" Padding="5,5,5,5"/>
         </Grid>
-        
+
     </Grid>
 </Window>
