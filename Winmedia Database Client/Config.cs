@@ -22,7 +22,9 @@ namespace Winmedia_Database_Client
         private static String _DBPass;
         private static String _DB;
         private static String _Category;
-        
+        private static String _endingDate = "2078 - 12 - 31 00:00:00.000";
+
+
         private static String[] _format = { ".mp3",".flac",".mp2",".wav",".ogg",".sam"};
 
         public static String VlcPath
@@ -78,6 +80,8 @@ namespace Winmedia_Database_Client
             get { return _format; }
         }
 
+        public static string EndingDate { get => _endingDate; set => _endingDate = value; }
+
         public static void Init()
         {
             String newConfig = String.Empty;
@@ -96,6 +100,7 @@ namespace Winmedia_Database_Client
                     _DBUser = items["DBUser"];
                     _DBPass = items["DBPass"];
                     _DB = items["DB"];
+                    _Category = items["Category"];
                     
                 }
             }

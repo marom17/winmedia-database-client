@@ -16,6 +16,7 @@ namespace Winmedia_Database_Client
             +"'','','','','','','','','','','','',3,GETDATE(),'no','Aucune','','');";
 
         private static String _importPath = "INSERT INTO dbo.Path VALUES (@id,@media,0,2,@path,@length,0,0,1,2,2,384000,2,2,48000,1,1,0,0,0,0,0,@size,0,GETDATE());";
+        private static String _importCategory = "INSERT INTO dbo.Belong VALUES (@id,@media,GETDATE(),@endDate,@cat)";
         public static void ImportAudio(Music file)
         {
             DBHelper.connect();
@@ -76,6 +77,24 @@ namespace Winmedia_Database_Client
                 command.Parameters["@length"].Value = file.Duration;
                 command.Parameters.Add("@size", SqlDbType.Int);
                 command.Parameters["@size"].Value = file.FileLength;
+                rowAffected = command.ExecuteNonQuery();
+                DBHelper.disconnect();
+
+
+                DBHelper.connect();
+                var belongId = DBHelper.getLastId("dbo.Belong", "IBelong") + 1;
+                DBHelper.disconnect();
+
+                command = new SqlCommand(_importCategory, DBHelper.connect());
+                command.Parameters.Add("@id", SqlDbType.Int);
+                command.Parameters["@id"].Value = belongId;
+                command.Parameters.Add("@media", SqlDbType.Int);
+                command.Parameters["@media"].Value = mediaId;
+                command.Parameters.Add("@endDate", SqlDbType.DateTime);
+                command.Parameters["@endDate"].Value = Config.EndingDate;
+                command.Parameters.Add("@cat", SqlDbType.Int);
+                command.Parameters["@cat"].Value = Convert.ToInt32(Config.Category);
+
                 rowAffected = command.ExecuteNonQuery();
                 DBHelper.disconnect();
 
