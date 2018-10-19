@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,15 +13,17 @@ namespace Winmedia_Database_Client
     {
         private static String[] _options = { "--no-repeat --no-loop -I dummy --dummy-quiet \"", "\" vlc://quit --sout=#transcode{acodec=mp2,ab=384,samplerate=48000,channels=2}:standard{access=file,mux=ts,dst=\"", "\" }" };
 
-        public static void Encode(String path)
+        public static void Encode(Music file)
         {
+
+            String path = file.FilePath;
             var md5 = MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(DateTime.Now.ToString());
             var hash = md5.ComputeHash(inputBytes);
             var fileName = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant() + ".sam";
 
             String dest = Config.FilePath + fileName;
-            Debug.WriteLine(dest);
+            file.FilePath = dest;
 
             String arg = _options[0] + path + _options[1] + dest + _options[2];
 
@@ -42,6 +45,15 @@ namespace Winmedia_Database_Client
 
                 // Retrieve the app's exit code
                 exitCode = proc.ExitCode;
+                
+                FileInfo f = new FileInfo(dest);
+                if (f.Length == 0)
+                {
+                    f.Delete();
+                    Debug.WriteLine("Error");
+                    Debug.WriteLine("Retry");
+                    Transcoder.Encode(file);
+                }
             }
 
         }

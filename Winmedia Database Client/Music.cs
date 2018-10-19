@@ -12,6 +12,7 @@ namespace Winmedia_Database_Client
         private String _artist;
         private String _title;
         private String _fileName;
+        private int _fileLength;
         private int _duration;
         private int _start;
         private int _intro;
@@ -33,6 +34,7 @@ namespace Winmedia_Database_Client
         public int Cutout { get => _cutout; set => _cutout = value; }
         public int Start { get => _start; set => _start = value; }
         public string FileName { get => _fileName; set => _fileName = value; }
+        public int FileLength { get => _fileLength; set => _fileLength = value; }
 
         public Music(String uri)
         {
@@ -42,6 +44,7 @@ namespace Winmedia_Database_Client
             _artist = info["Artist"];
             _title = info["Title"];
             _fileName = info["FileName"];
+            _fileLength = Convert.ToInt32(info["FileLength"]);
             _duration = Convert.ToInt32(info["Duration"]);
             _intro = 0;
             _start = 0;

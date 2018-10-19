@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -35,7 +36,14 @@ namespace Winmedia_Database_Client
 
         static public void disconnect()
         {
-            _db.Close();
+            try
+            {
+                _db.Close();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         static public void getData()
@@ -55,6 +63,21 @@ namespace Winmedia_Database_Client
             {
                 Debug.WriteLine(e.ToString());
             }
+        }
+
+        static public int getLastId(String table, String IdName)
+        {
+            SqlDataReader myReader = null;
+            String query = "SELECT TOP 1 " + IdName + " FROM " + table + " ORDER BY " + IdName + " DESC;";
+            SqlCommand myCommand = new SqlCommand(query,_db);
+
+            myReader = myCommand.ExecuteReader();
+            while (myReader.Read())
+            {
+                return Convert.ToInt32(myReader[IdName]);
+            }
+
+            return 0;
         }
     }
 }
