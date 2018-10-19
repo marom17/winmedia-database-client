@@ -75,6 +75,7 @@
     <Compile Include="ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Music.cs" />
     <Compile Include="Transcoder.cs" />
     <Page Include="ConfigWindow.xaml">
       <SubType>Designer</SubType>

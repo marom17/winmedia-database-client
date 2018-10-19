@@ -23,7 +23,7 @@ namespace Winmedia_Database_Client
         private static String _DB;
         private static String _Category;
         
-        private static String[] _format = { ".mp3",".flac",".mp2",".wav"};
+        private static String[] _format = { ".mp3",".flac",".mp2",".wav",".ogg",".sam"};
 
         public static String VlcPath
         {

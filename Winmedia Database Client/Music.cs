@@ -10,12 +10,16 @@ namespace Winmedia_Database_Client
     {
         private String _filePath;
         private String _artist;
-        private String _name;
+        private String _title;
+        private String _fileName;
         private int _duration;
+        private int _start;
         private int _intro;
         private int _next;
         private int _trimin;
-        private int _trimout;
+        private int _trimout; //Same as cutout
+        private int _stop; // Different of trimout and cutout
+        private int _cutout; //Same as trimout
 
         public string FilePath { get => _filePath; set => _filePath = value; }
         public int Duration { get => _duration; set => _duration = value; }
@@ -24,6 +28,33 @@ namespace Winmedia_Database_Client
         public int Trimin { get => _trimin; set => _trimin = value; }
         public int Trimout { get => _trimout; set => _trimout = value; }
         public string Artist { get => _artist; set => _artist = value; }
-        public string Name { get => _name; set => _name = value; }
+        public string Name { get => _title; set => _title = value; }
+        public int Stop { get => _stop; set => _stop = value; }
+        public int Cutout { get => _cutout; set => _cutout = value; }
+        public int Start { get => _start; set => _start = value; }
+
+        public Music(String uri)
+        {
+            Dictionary<String, String> info = AudioInfo.Info(uri);
+
+            _filePath = uri;
+            _artist = info["Artist"];
+            _title = info["Title"];
+            _fileName = info["FileName"];
+            _duration = Convert.ToInt32(info["Duration"]);
+            _intro = 0;
+            _start = 0;
+            _next = _duration;
+            _trimin = 0;
+            _trimout = _duration;
+            _stop = _duration;
+            _cutout = _duration;
+
+        }
+
+        public override string ToString()
+        {
+            return _fileName;
+        }
     }
 }

@@ -29,6 +29,23 @@ namespace Winmedia_Database_Client
             InitializeComponent();
         }
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                _cfgWin.Close();
+            }
+            catch (Exception) { }
+
+            try
+            {
+                _imWin.Close();
+            }
+            catch (Exception) { }
+
+            base.OnClosing(e);
+        }
+
         private void Rectangle_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -46,12 +63,14 @@ namespace Winmedia_Database_Client
                     }
                     if (formatOk)
                     {
-                        toImport.Add(file);                        
+                        toImport.Add(file);
+                        AudioInfo.Info(file);
                     }
                 }
-
-                _imWin = new ImportWindow(toImport);
-                
+                if(toImport.Count > 0)
+                {
+                    _imWin = new ImportWindow(toImport);
+                }
             }
         }
 

@@ -25,7 +25,7 @@ namespace Winmedia_Database_Client
             InitializeComponent();
             foreach(var file in files)
             {
-                this.ListFiles.Items.Add(file);
+                this.ListFiles.Items.Add(new Music(file));
             }
 
             this.Show();
