@@ -28,10 +28,11 @@ namespace Winmedia_Database_Client
         public int Trimin { get => _trimin; set => _trimin = value; }
         public int Trimout { get => _trimout; set => _trimout = value; }
         public string Artist { get => _artist; set => _artist = value; }
-        public string Name { get => _title; set => _title = value; }
+        public string Title { get => _title; set => _title = value; }
         public int Stop { get => _stop; set => _stop = value; }
         public int Cutout { get => _cutout; set => _cutout = value; }
         public int Start { get => _start; set => _start = value; }
+        public string FileName { get => _fileName; set => _fileName = value; }
 
         public Music(String uri)
         {

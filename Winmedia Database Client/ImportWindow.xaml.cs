@@ -41,5 +41,19 @@ namespace Winmedia_Database_Client
             }
             this.Close();
         }
+
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ((Music)(sender as ListViewItem).Content);
+            if (item != null)
+            {
+                this.FileName.Text = item.FileName;
+                this.Artist.Text = item.Artist;
+                this.Title.Text = item.Title;
+                this.Duration.Text = item.Duration.ToString();
+                this.Intro.Text = item.ToString();
+                this.Next.Text = item.Next.ToString();
+            }
+        }
     }
 }

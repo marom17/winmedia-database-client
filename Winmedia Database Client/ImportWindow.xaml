@@ -22,7 +22,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <ListView Name="ListFiles" Grid.Column="0" Grid.Row="1">
-                
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1" Name="DataReview">
@@ -32,8 +36,28 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="File name:"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Name="FileName"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Artist:"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="Artist"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Title:"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Name="Title"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Duration:"/>
+            <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="False" Name="Duration"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="Intro:"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Name="Intro"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Next:"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Name="Next"/>
+            
+            <Button Grid.Row="7"  Name="ImportBtn" Click="ImportBtn_Click" Content="Import" Grid.Column="1" Padding="5,5,5,5"/>
         </Grid>
-        <Button Name="ImportBtn" Click="ImportBtn_Click" Content="Import" Grid.Column="1" Margin="711.2,370,-778.4,10"/>
+        
     </Grid>
 </Window>
