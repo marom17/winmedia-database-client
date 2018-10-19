@@ -32,11 +32,7 @@ namespace Winmedia_Database_Client
             info.Add("FileLength", fileLength);
             info.Add("Bitrate", bitrate);
 
-            Debug.WriteLine(artist + ": " + trackName);
-            Debug.WriteLine("File name:" + fileName);
-            Debug.WriteLine("File length: " + fileLength);
-            Debug.WriteLine("Duration: " + duration);
-            Debug.WriteLine("Bit rate: " + bitrate);
+            MI.Close();
 
             return info;
         }
