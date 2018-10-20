@@ -20,52 +20,53 @@ namespace Winmedia_Database_Client
         public static void ImportAudio(Music file)
         {
             DBHelper.connect();
-            var mediaId = DBHelper.getLastId("dbo.Media", "IMedia") + 1;
-            DBHelper.disconnect();
-            
-            SqlCommand command = new SqlCommand(_importMusic, DBHelper.connect());
-            command.Parameters.Add("@id", SqlDbType.Int);
-            command.Parameters["@id"].Value = mediaId;
-            command.Parameters.Add("@performer", SqlDbType.NVarChar);
-            command.Parameters["@performer"].Value = file.Artist;
-            command.Parameters.Add("@title", SqlDbType.NVarChar);
-            command.Parameters["@title"].Value = file.Title;
-            command.Parameters.Add("@duration", SqlDbType.Int);
-            command.Parameters["@duration"].Value = file.Duration;
-            command.Parameters.Add("@start", SqlDbType.Int);
-            command.Parameters["@start"].Value = file.Start;
-            command.Parameters.Add("@stop", SqlDbType.Int);
-            command.Parameters["@stop"].Value = file.Stop;
-            command.Parameters.Add("@trimin", SqlDbType.Int);
-            command.Parameters["@trimin"].Value = file.Trimin;
-            command.Parameters.Add("@trimout", SqlDbType.Int);
-            command.Parameters["@trimout"].Value = file.Trimout;
-            command.Parameters.Add("@cutin", SqlDbType.Int);
-            command.Parameters["@cutin"].Value = file.Start;
-            command.Parameters.Add("@cutout", SqlDbType.Int);
-            command.Parameters["@cutout"].Value = file.Cutout;
-            command.Parameters.Add("@loopin", SqlDbType.Int);
-            command.Parameters["@loopin"].Value = file.Start;
-            command.Parameters.Add("@loopout", SqlDbType.Int);
-            command.Parameters["@loopout"].Value = file.Start;
-            command.Parameters.Add("@introin", SqlDbType.Int);
-            command.Parameters["@introin"].Value = file.Start;
-            command.Parameters.Add("@introout", SqlDbType.Int);
-            command.Parameters["@introout"].Value = file.Intro;
-            command.Parameters.Add("@hookin", SqlDbType.Int);
-            command.Parameters["@hookin"].Value = file.Start;
-            command.Parameters.Add("@hookout", SqlDbType.Int);
-            command.Parameters["@hookout"].Value = file.Start;
-
+            SqlTransaction transaction = DBHelper.db().BeginTransaction();
             try
             {
-                Int32 rowAffected = command.ExecuteNonQuery();
-                DBHelper.disconnect();
-                DBHelper.connect();
-                var pathId = DBHelper.getLastId("dbo.Path", "IPath") + 1;
-                DBHelper.disconnect();
+                var mediaId = DBHelper.getLastId("dbo.Media", "IMedia") + 1;
+            
+                SqlCommand command = new SqlCommand(_importMusic, DBHelper.db(),transaction);
+                command.Parameters.Add("@id", SqlDbType.Int);
+                command.Parameters["@id"].Value = mediaId;
+                command.Parameters.Add("@performer", SqlDbType.NVarChar);
+                command.Parameters["@performer"].Value = file.Artist;
+                command.Parameters.Add("@title", SqlDbType.NVarChar);
+                command.Parameters["@title"].Value = file.Title;
+                command.Parameters.Add("@duration", SqlDbType.Int);
+                command.Parameters["@duration"].Value = file.Duration;
+                command.Parameters.Add("@start", SqlDbType.Int);
+                command.Parameters["@start"].Value = file.Start;
+                command.Parameters.Add("@stop", SqlDbType.Int);
+                command.Parameters["@stop"].Value = file.Stop;
+                command.Parameters.Add("@trimin", SqlDbType.Int);
+                command.Parameters["@trimin"].Value = file.Trimin;
+                command.Parameters.Add("@trimout", SqlDbType.Int);
+                command.Parameters["@trimout"].Value = file.Trimout;
+                command.Parameters.Add("@cutin", SqlDbType.Int);
+                command.Parameters["@cutin"].Value = file.Start;
+                command.Parameters.Add("@cutout", SqlDbType.Int);
+                command.Parameters["@cutout"].Value = file.Cutout;
+                command.Parameters.Add("@loopin", SqlDbType.Int);
+                command.Parameters["@loopin"].Value = file.Start;
+                command.Parameters.Add("@loopout", SqlDbType.Int);
+                command.Parameters["@loopout"].Value = file.Start;
+                command.Parameters.Add("@introin", SqlDbType.Int);
+                command.Parameters["@introin"].Value = file.Start;
+                command.Parameters.Add("@introout", SqlDbType.Int);
+                command.Parameters["@introout"].Value = file.Intro;
+                command.Parameters.Add("@hookin", SqlDbType.Int);
+                command.Parameters["@hookin"].Value = file.Start;
+                command.Parameters.Add("@hookout", SqlDbType.Int);
+                command.Parameters["@hookout"].Value = file.Start;
 
-                command = new SqlCommand(_importPath, DBHelper.connect());
+            
+                command.ExecuteNonQuery();
+
+                command.Dispose();
+
+                var pathId = DBHelper.getLastId("dbo.Path", "IPath") + 1;
+
+                command = new SqlCommand(_importPath, DBHelper.db(),transaction);
                 command.Parameters.Add("@id", SqlDbType.Int);
                 command.Parameters["@id"].Value = pathId;
                 command.Parameters.Add("@media", SqlDbType.Int);
@@ -77,15 +78,13 @@ namespace Winmedia_Database_Client
                 command.Parameters["@length"].Value = file.Duration;
                 command.Parameters.Add("@size", SqlDbType.Int);
                 command.Parameters["@size"].Value = file.FileLength;
-                rowAffected = command.ExecuteNonQuery();
-                DBHelper.disconnect();
+                command.ExecuteNonQuery();
 
+                command.Dispose();
 
-                DBHelper.connect();
                 var belongId = DBHelper.getLastId("dbo.Belong", "IBelong") + 1;
-                DBHelper.disconnect();
 
-                command = new SqlCommand(_importCategory, DBHelper.connect());
+                command = new SqlCommand(_importCategory, DBHelper.db(),transaction);
                 command.Parameters.Add("@id", SqlDbType.Int);
                 command.Parameters["@id"].Value = belongId;
                 command.Parameters.Add("@media", SqlDbType.Int);
@@ -95,8 +94,11 @@ namespace Winmedia_Database_Client
                 command.Parameters.Add("@cat", SqlDbType.Int);
                 command.Parameters["@cat"].Value = Convert.ToInt32(Config.Category);
 
-                rowAffected = command.ExecuteNonQuery();
-                DBHelper.disconnect();
+                command.ExecuteNonQuery();
+
+                command.Dispose();
+
+                transaction.Commit();
 
 
 
@@ -104,7 +106,10 @@ namespace Winmedia_Database_Client
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                transaction.Rollback();
             }
+
+            DBHelper.disconnect();
         }
     }
 }

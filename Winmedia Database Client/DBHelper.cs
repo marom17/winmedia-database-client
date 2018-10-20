@@ -13,7 +13,7 @@ namespace Winmedia_Database_Client
     {
         static private SqlConnection _db;
 
-        static public SqlConnection connect()
+        static public Boolean connect()
         {
             String conn = String.Format("user id={0};" +
                                        "password={1};server={2};" +
@@ -25,13 +25,18 @@ namespace Winmedia_Database_Client
             try
             {
                 _db.Open();
-                return _db;
+                return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                return null;
+                return false;
             }
+        }
+
+        static public SqlConnection db()
+        {
+            return _db;
         }
 
         static public void disconnect()
@@ -40,7 +45,7 @@ namespace Winmedia_Database_Client
             {
                 _db.Close();
             }
-            catch(Exception e)
+            catch(Exception)
             {
 
             }
@@ -67,15 +72,26 @@ namespace Winmedia_Database_Client
 
         static public int getLastId(String table, String IdName)
         {
+            String conn = String.Format("user id={0};" +
+                                       "password={1};server={2};" +
+                                       //"Trusted_Connection=yes;" +
+                                       "database={3}; " +
+                                       "connection timeout=30", Config.DBUser, Config.DBPass, Config.DBHost, Config.DB);
+            SqlConnection sql = new SqlConnection(conn);
+            sql.Open();
+
             SqlDataReader myReader = null;
             String query = "SELECT TOP 1 " + IdName + " FROM " + table + " ORDER BY " + IdName + " DESC;";
-            SqlCommand myCommand = new SqlCommand(query,_db);
+            SqlCommand myCommand = new SqlCommand(query,sql);
 
             myReader = myCommand.ExecuteReader();
             while (myReader.Read())
             {
                 return Convert.ToInt32(myReader[IdName]);
             }
+            myReader.Close();
+            myCommand.Dispose();
+            sql.Close();
 
             return 0;
         }
