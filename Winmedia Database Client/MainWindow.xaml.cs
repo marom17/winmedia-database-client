@@ -64,7 +64,7 @@ namespace Winmedia_Database_Client
                     bool formatOk = false;
                     foreach(var fm in Config.Format)
                     {
-                        if (file.Contains(fm))
+                        if (file.ToLower().Contains(fm))
                         {
                             formatOk = true;
                         }

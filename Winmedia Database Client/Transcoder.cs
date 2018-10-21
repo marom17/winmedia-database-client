@@ -25,7 +25,7 @@ namespace Winmedia_Database_Client
             var hash = md5.ComputeHash(inputBytes);
             var fileName = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant() + ".sam";
 
-            String dest = Config.FilePath + fileName;
+            String dest = @"import\" + fileName;
             
 
             Console.WriteLine(dest);
@@ -58,7 +58,7 @@ namespace Winmedia_Database_Client
                     f.Delete();
                     Debug.WriteLine("Error");
                     Debug.WriteLine("Retry");
-                    if (attempts < 0)
+                    if (attempts < 5)
                     {
                         Transcoder.Encode(file, attempts + 1);
                     }
@@ -69,7 +69,19 @@ namespace Winmedia_Database_Client
                 }
                 else
                 {
-                    file.FilePath = dest;
+                    String nasDest = Config.FilePath + fileName;
+                    try
+                    {
+                        File.Move(dest, nasDest);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    
+                    
+                    file.FilePath = nasDest;
+                    file.FileName = fileName;
                     return true;
                 }
             }

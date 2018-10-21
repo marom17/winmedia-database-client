@@ -17,6 +17,7 @@ namespace Winmedia_Database_Client
         {
             String conn = String.Format("user id={0};" +
                                        "password={1};server={2};" +
+                                       "MultipleActiveResultSets = true;"+
                                        //"Trusted_Connection=yes;" +
                                        "database={3}; " +
                                        "connection timeout=30", Config.DBUser, Config.DBPass, Config.DBHost, Config.DB);
@@ -70,17 +71,17 @@ namespace Winmedia_Database_Client
 
         static public int getLastId(String table, String IdName)
         {
-            String conn = String.Format("user id={0};" +
+            /*String conn = String.Format("user id={0};" +
                                        "password={1};server={2};" +
                                        //"Trusted_Connection=yes;" +
                                        "database={3}; " +
                                        "connection timeout=30", Config.DBUser, Config.DBPass, Config.DBHost, Config.DB);
             SqlConnection sql = new SqlConnection(conn);
-            sql.Open();
+            sql.Open();*/
 
             SqlDataReader myReader = null;
             String query = "SELECT TOP 1 " + IdName + " FROM " + table + " ORDER BY " + IdName + " DESC;";
-            SqlCommand myCommand = new SqlCommand(query,sql);
+            SqlCommand myCommand = new SqlCommand(query,_db);
 
             myReader = myCommand.ExecuteReader();
             while (myReader.Read())
@@ -89,7 +90,7 @@ namespace Winmedia_Database_Client
             }
             myReader.Close();
             myCommand.Dispose();
-            sql.Close();
+            //sql.Close();
 
             return 0;
         }

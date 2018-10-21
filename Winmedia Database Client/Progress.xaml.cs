@@ -52,7 +52,7 @@ namespace Winmedia_Database_Client
             worker.DoWork += Transcode;
             worker.RunWorkerCompleted += Finished;
             worker.RunWorkerAsync(this.files);
-        }
+            }
 
         public void Transcode(object sender, DoWorkEventArgs e)
         {
@@ -68,7 +68,7 @@ namespace Winmedia_Database_Client
                 
                 Transcoder.Encode(file, 0);
 
-                //AudioDB.ImportAudio(file);
+                AudioDB.ImportAudio(file);
                 this.Dispatcher.BeginInvoke((Action)delegate () {
                     this.actual += 1;
                     this.PgBar.Value = this.actual;

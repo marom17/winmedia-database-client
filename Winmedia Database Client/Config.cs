@@ -122,11 +122,9 @@ namespace Winmedia_Database_Client
                 String json = JsonConvert.SerializeObject(config);
                 File.WriteAllText(_confPath, json);
             }
-            /*
             DBHelper.connect();
             _FilePath = DBHelper.getAudioPath(_folder);
             DBHelper.disconnect();
-            */
         }
 
         public static void saveConfig(ConfigWindow configWindow)

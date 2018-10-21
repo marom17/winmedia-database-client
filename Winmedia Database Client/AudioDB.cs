@@ -12,22 +12,17 @@ namespace Winmedia_Database_Client
     class AudioDB
     {
         private static String _importMusic = "INSERT INTO dbo.Media "+
-            "VALUES (@id,@performer,@title,'',0,@duration,@start,@stop,@trimin,@trimout,0,0,0,0,@cutin,@cutout,@loopin,@loopout,@introin,@introout,@hookin,@hookout,0,0,1,1,1,0,1,0,-3,"
+            "VALUES (@performer,@title,'',0,@duration,@start,@stop,@trimin,@trimout,0,0,0,0,@cutin,@cutout,@loopin,@loopout,@introin,@introout,@hookin,@hookout,0,0,1,1,1,0,1,0,-3,"
             +"'','','','','','','','','','','','',3,GETDATE(),'no','Aucune','','');";
 
-        private static String _importPath = "INSERT INTO dbo.Path VALUES (@id,@media,0,2,@path,@length,0,0,1,2,2,384000,2,2,48000,1,1,0,0,0,0,0,@size,0,GETDATE());";
-        private static String _importCategory = "INSERT INTO dbo.Belong VALUES (@id,@media,GETDATE(),@endDate,@cat)";
+        private static String _importPath = "INSERT INTO dbo.Path VALUES (@media,0,2,@path,@length,0,0,1,2,2,384000,2,2,48000,1,1,0,0,0,0,0,@size,0,GETDATE());";
+        private static String _importCategory = "INSERT INTO dbo.Belong VALUES (@media,GETDATE(),@endDate,@cat)";
         public static void ImportAudio(Music file)
         {
             DBHelper.connect();
-            SqlTransaction transaction = DBHelper.db().BeginTransaction();
             try
-            {
-                var mediaId = DBHelper.getLastId("dbo.Media", "IMedia") + 1;
-            
-                SqlCommand command = new SqlCommand(_importMusic, DBHelper.db(),transaction);
-                command.Parameters.Add("@id", SqlDbType.Int);
-                command.Parameters["@id"].Value = mediaId;
+            {    
+                SqlCommand command = new SqlCommand(_importMusic, DBHelper.db());
                 command.Parameters.Add("@performer", SqlDbType.NVarChar);
                 command.Parameters["@performer"].Value = file.Artist;
                 command.Parameters.Add("@title", SqlDbType.NVarChar);
@@ -64,11 +59,9 @@ namespace Winmedia_Database_Client
 
                 command.Dispose();
 
-                var pathId = DBHelper.getLastId("dbo.Path", "IPath") + 1;
+                var mediaId = DBHelper.getLastId("dbo.Media", "IMedia");
 
-                command = new SqlCommand(_importPath, DBHelper.db(),transaction);
-                command.Parameters.Add("@id", SqlDbType.Int);
-                command.Parameters["@id"].Value = pathId;
+                command = new SqlCommand(_importPath, DBHelper.db());
                 command.Parameters.Add("@media", SqlDbType.Int);
                 command.Parameters["@media"].Value = mediaId;
                 command.Parameters.Add("@path", SqlDbType.NVarChar);
@@ -82,11 +75,9 @@ namespace Winmedia_Database_Client
 
                 command.Dispose();
 
-                var belongId = DBHelper.getLastId("dbo.Belong", "IBelong") + 1;
+                var pathId = DBHelper.getLastId("dbo.Path", "IPath");
 
-                command = new SqlCommand(_importCategory, DBHelper.db(),transaction);
-                command.Parameters.Add("@id", SqlDbType.Int);
-                command.Parameters["@id"].Value = belongId;
+                command = new SqlCommand(_importCategory, DBHelper.db());
                 command.Parameters.Add("@media", SqlDbType.Int);
                 command.Parameters["@media"].Value = mediaId;
                 command.Parameters.Add("@endDate", SqlDbType.DateTime);
@@ -98,8 +89,6 @@ namespace Winmedia_Database_Client
 
                 command.Dispose();
 
-                transaction.Commit();
-
 
 
             }
@@ -108,7 +97,6 @@ namespace Winmedia_Database_Client
                 Debug.WriteLine(ex.Message);
                 Console.WriteLine("Problem in db");
                 Console.WriteLine(ex.Message);
-                transaction.Rollback();
             }
 
             DBHelper.disconnect();
