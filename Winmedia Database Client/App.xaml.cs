@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using MediaInfo;
+using System.Windows.Media;
 
 namespace Winmedia_Database_Client
 {
@@ -21,10 +22,6 @@ namespace Winmedia_Database_Client
         protected override void OnStartup(StartupEventArgs e)
         {
             Config.Init();
-            
-            //DBHelper.connect();
-            //DBHelper.getData();
-            //DBHelper.disconnect();
         }
     }
 }

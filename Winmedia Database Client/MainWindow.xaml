@@ -11,5 +11,7 @@
         <Button Content="Config" HorizontalAlignment="Left" Margin="621,62,0,0" VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
 
         <TextBox Height="200" Width="400" x:Name="TestBox" Margin="180,210,212,9"/>
+        <MediaElement Name="MediaPlayer"  HorizontalAlignment="Left" Height="100" Margin="621,210,0,0" VerticalAlignment="Top" Width="100" LoadedBehavior="Manual" UnloadedBehavior="Manual"/>
+
     </Grid>
 </Window>
