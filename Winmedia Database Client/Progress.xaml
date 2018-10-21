@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winmedia_Database_Client"
         mc:Ignorable="d"
-        Title="Progress" Height="141" Width="658" ResizeMode="NoResize">
+        Title="Progress" Height="141" Width="658" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid Visibility="Visible">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="231*"/>

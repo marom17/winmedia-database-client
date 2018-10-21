@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winmedia_Database_Client"
         mc:Ignorable="d"
-        Title="Import" Height="450" Width="800">
+        Title="Import" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
