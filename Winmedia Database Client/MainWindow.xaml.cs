@@ -37,13 +37,8 @@ namespace Winmedia_Database_Client
             Console.SetOut(outputter);
             Console.WriteLine("Started");
 
-            //var fileName = @"test.mp3";
-            //var fileName =  @"\\syno\music\Music\Caravan Palace - Caravan Palace (2008) (FLAC)\09 Brotherswing.Flac";
-            var fileName = @"test.sam";
-            var x = new AudioFileReader(fileName);
-            WaveOut wave = new WaveOut();
-            wave.Init(x);
-            wave.Play();
+            
+            
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)

@@ -36,7 +36,25 @@ namespace Winmedia_Database_Client
             this.ListFiles.SelectedIndex = 0;
             var item = ((Music)(this.ListFiles.SelectedItem));
             this.SetInfo(item);
+            Player.Load(item.FilePath);
             this.Show();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            try
+            {
+                Player.Stop();
+            }
+            catch (Exception) { }
+
+            try
+            {
+                Player.Dispose();
+            }
+            catch (Exception) { }
+
+            base.OnClosed(e);
         }
 
         private void ImportBtn_Click(object sender, RoutedEventArgs e)
@@ -69,6 +87,13 @@ namespace Winmedia_Database_Client
             if (item != null)
             {
                 this.SetInfo(item);
+                try
+                {
+                    Player.Stop();
+                }
+                catch (Exception) { }
+
+                Player.Load(item.FilePath);
             }
         }
 
@@ -84,6 +109,16 @@ namespace Winmedia_Database_Client
             item.Intro = Convert.ToInt32(this.Intro.Text);
             item.Next = Convert.ToInt32(this.Next.Text);
 
+        }
+
+        private void BtnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            Player.Play();
+        }
+
+        private void BtnStop_Click(object sender, RoutedEventArgs e)
+        {
+            Player.Stop();
         }
     }
 }
