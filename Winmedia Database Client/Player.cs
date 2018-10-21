@@ -14,7 +14,7 @@ namespace Winmedia_Database_Client
 
         public static void Load(String path)
         {
-            var x = new AudioFileReader(path);
+            var x = new AudioFileReader(path.ToString());
             wave.Init(x);
         }
 

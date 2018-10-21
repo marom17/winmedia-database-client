@@ -48,12 +48,6 @@ namespace Winmedia_Database_Client
             }
             catch (Exception) { }
 
-            try
-            {
-                Player.Dispose();
-            }
-            catch (Exception) { }
-
             base.OnClosed(e);
         }
 
