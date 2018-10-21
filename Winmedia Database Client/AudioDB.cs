@@ -106,6 +106,8 @@ namespace Winmedia_Database_Client
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                Console.WriteLine("Problem in db");
+                Console.WriteLine(ex.Message);
                 transaction.Rollback();
             }
 

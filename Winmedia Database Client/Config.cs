@@ -13,7 +13,7 @@ namespace Winmedia_Database_Client
     class Config
     {
         private static String _confPath = @"./config";
-        private static String _FilePath = @"./import/";
+        private static String _FilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+"\\import\\";
 
         private static String _VlcPath;
         private static String _DBHost;

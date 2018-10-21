@@ -85,7 +85,7 @@ namespace Winmedia_Database_Client
             myReader = myCommand.ExecuteReader();
             while (myReader.Read())
             {
-                return Convert.ToInt32(myReader["Folder"]);
+                return Convert.ToInt32(myReader[IdName]);
             }
             myReader.Close();
             myCommand.Dispose();

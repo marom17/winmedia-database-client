@@ -75,10 +75,11 @@ namespace Winmedia_Database_Client
                         AudioInfo.Info(file);
                     }
                 }
-                if(toImport.Count > 0)
+                if (toImport.Count > 0)
                 {
                     _imWin = new ImportWindow(toImport);
                 }
+                
             }
         }
 

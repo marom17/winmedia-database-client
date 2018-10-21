@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Winmedia_Database_Client
 {
@@ -20,6 +22,9 @@ namespace Winmedia_Database_Client
     /// </summary>
     public partial class ImportWindow : Window
     {
+        private Progress _pgWin;
+
+
         public ImportWindow(List<String> files)
         {
             InitializeComponent();
@@ -40,22 +45,12 @@ namespace Winmedia_Database_Client
             Console.WriteLine("Start Transcoding");
             try
             {
-                foreach (Music file in this.ListFiles.Items)
-                {
-
-                    Debug.WriteLine(file);
-                    Transcoder.Encode(file);
-
-                    AudioDB.ImportAudio(file);
-
-                }
+                _pgWin = new Progress(this.ListFiles.Items,this);
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            
-            this.Close();
         }
 
         private void SetInfo(Music item)

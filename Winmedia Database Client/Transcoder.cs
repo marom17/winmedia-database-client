@@ -9,27 +9,30 @@ using System.Threading.Tasks;
 
 namespace Winmedia_Database_Client
 {
-    class Transcoder
+    internal class Transcoder
     {
-        private static String[] _options = { "--no-repeat --no-loop -I dummy --dummy-quiet \"", "\" vlc://quit --sout=#transcode{acodec=mp2,ab=384,samplerate=48000,channels=2}:standard{access=file,mux=ts,dst=\"", "\" }" };
+        private static String[] _options = { "--no-repeat --no-loop -I dummy \"", "\" vlc://quit --sout=#transcode{acodec=mp2,ab=384,samplerate=48000,channels=2}:standard{access=file,mux=ts,dst=\"", "\" }" };
 
-        public static void Encode(Music file)
+        public static Boolean Encode(Music file, int attempts)
         {
             Console.WriteLine("Encoding " + file);
 
             String path = file.FilePath;
+            Console.WriteLine(path);
+            
             var md5 = MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(DateTime.Now.ToString());
             var hash = md5.ComputeHash(inputBytes);
             var fileName = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant() + ".sam";
 
             String dest = Config.FilePath + fileName;
-            file.FilePath = dest;
+            
 
             Console.WriteLine(dest);
 
             String arg = _options[0] + path + _options[1] + dest + _options[2];
 
+            
             // Prepare the process to run
             ProcessStartInfo start = new ProcessStartInfo();
             // Enter in the command line arguments, everything you would enter after the executable name itself
@@ -55,9 +58,23 @@ namespace Winmedia_Database_Client
                     f.Delete();
                     Debug.WriteLine("Error");
                     Debug.WriteLine("Retry");
-                    Transcoder.Encode(file);
+                    if (attempts < 0)
+                    {
+                        Transcoder.Encode(file, attempts + 1);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    file.FilePath = dest;
+                    return true;
                 }
             }
+
+            return true;
 
         }
     }
