@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="WinMedia Database Client" Height="450" Width="800">
     <Grid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Margin="118,152,0,0" Stroke="Black" VerticalAlignment="Top" Width="534" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Margin="103,87,0,0" Stroke="Black" VerticalAlignment="Top" Width="534" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
         <Button Content="Config" HorizontalAlignment="Left" Margin="621,62,0,0" VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
 
+        <TextBox Height="200" Width="400" x:Name="TestBox" Margin="180,210,212,9"/>
     </Grid>
 </Window>

@@ -22,6 +22,7 @@ namespace Winmedia_Database_Client
         private static String _DBPass;
         private static String _DB;
         private static String _Category;
+        private static String _folder = "2";
         private static String _endingDate = "2078 - 12 - 31 00:00:00.000";
 
 
@@ -121,6 +122,11 @@ namespace Winmedia_Database_Client
                 String json = JsonConvert.SerializeObject(config);
                 File.WriteAllText(_confPath, json);
             }
+            /*
+            DBHelper.connect();
+            _FilePath = DBHelper.getAudioPath(_folder);
+            DBHelper.disconnect();
+            */
         }
 
         public static void saveConfig(ConfigWindow configWindow)

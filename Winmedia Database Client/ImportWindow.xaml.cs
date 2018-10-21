@@ -37,15 +37,24 @@ namespace Winmedia_Database_Client
         private void ImportBtn_Click(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("Start Transcoding");
-            foreach (Music file in this.ListFiles.Items)
+            Console.WriteLine("Start Transcoding");
+            try
             {
-                
-                Debug.WriteLine(file);
-                Transcoder.Encode(file);
-                
-                AudioDB.ImportAudio(file);
-            
+                foreach (Music file in this.ListFiles.Items)
+                {
+
+                    Debug.WriteLine(file);
+                    Transcoder.Encode(file);
+
+                    AudioDB.ImportAudio(file);
+
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             this.Close();
         }
 

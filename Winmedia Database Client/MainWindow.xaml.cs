@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,9 +25,16 @@ namespace Winmedia_Database_Client
 
         private ConfigWindow _cfgWin;
         private ImportWindow _imWin;
+
+        TextBoxOutputter outputter;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            outputter = new TextBoxOutputter(TestBox);
+            Console.SetOut(outputter);
+            Console.WriteLine("Started");
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)

@@ -15,6 +15,7 @@ namespace Winmedia_Database_Client
 
         public static void Encode(Music file)
         {
+            Console.WriteLine("Encoding " + file);
 
             String path = file.FilePath;
             var md5 = MD5.Create();
@@ -24,6 +25,8 @@ namespace Winmedia_Database_Client
 
             String dest = Config.FilePath + fileName;
             file.FilePath = dest;
+
+            Console.WriteLine(dest);
 
             String arg = _options[0] + path + _options[1] + dest + _options[2];
 

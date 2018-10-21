@@ -25,11 +25,13 @@ namespace Winmedia_Database_Client
             try
             {
                 _db.Open();
+                Console.WriteLine("DB OK");
                 return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
+                Console.WriteLine("DB NOK");
                 return false;
             }
         }
@@ -51,23 +53,19 @@ namespace Winmedia_Database_Client
             }
         }
 
-        static public void getData()
+        static public String getAudioPath(String folder)
         {
-            try
+            SqlDataReader myReader = null;
+            String query = "SELECT Folder FROM dbo.Directory WHERE IDirectory = " + folder + ";";
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+            while (myReader.Read())
             {
-                SqlDataReader myReader = null;
-                SqlCommand myCommand = new SqlCommand("select * from dbo.Account",
-                                                         _db);
-                myReader = myCommand.ExecuteReader();
-                while (myReader.Read())
-                {
-                    Debug.WriteLine(myReader["Name"] + "/" + myReader["Password"]);
-                }
+                return (String)myReader["Folder"];
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.ToString());
-            }
+
+            return "";
         }
 
         static public int getLastId(String table, String IdName)
@@ -87,7 +85,7 @@ namespace Winmedia_Database_Client
             myReader = myCommand.ExecuteReader();
             while (myReader.Read())
             {
-                return Convert.ToInt32(myReader[IdName]);
+                return Convert.ToInt32(myReader["Folder"]);
             }
             myReader.Close();
             myCommand.Dispose();
