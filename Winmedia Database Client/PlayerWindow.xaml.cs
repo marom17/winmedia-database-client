@@ -28,6 +28,7 @@ namespace Winmedia_Database_Client
         private Task getPeaks;
         private Boolean isPlaying = false;
         private TimeSpan Duration;
+        private static Music playing;
 
 
         public PlayerWindow()
@@ -82,6 +83,9 @@ namespace Winmedia_Database_Client
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             Player.Play();
+            this.Duration = new TimeSpan(0, 0, playing.Duration);
+            this.TBArtiste.Text = playing.Artist;
+            this.TBTitle.Text = playing.Title;
             this.isPlaying = true;
         }
 
@@ -91,11 +95,9 @@ namespace Winmedia_Database_Client
             this.isPlaying = false;
         }
 
-        public void LoadFile(Music file)
+        public static void LoadFile(Music file)
         {
-            this.Duration = new TimeSpan(0,0,file.Duration);
-            this.TBArtiste.Text = file.Artist;
-            this.TBTitle.Text = file.Title;
+            playing = file;
             Player.Load(file.FilePath);
         }
     }

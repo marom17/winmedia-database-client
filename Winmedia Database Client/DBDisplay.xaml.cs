@@ -23,6 +23,19 @@ namespace Winmedia_Database_Client
         public DBDisplay()
         {
             InitializeComponent();
+
+            new Task(() => {
+                DBHelper.connect();
+                List<Music> MusList = DBHelper.GetMusics(-1);
+                foreach(var music in MusList)
+                {
+                    this.Dispatcher.BeginInvoke((Action)delegate ()
+                    {
+                        this.MusicList.Items.Add(music);
+                    });
+                }
+                DBHelper.disconnect();
+            }).Start();
         }
 
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -30,7 +43,7 @@ namespace Winmedia_Database_Client
             var item = ((Music)(sender as ListViewItem).Content);
             if (item != null)
             {
-
+                PlayerWindow.LoadFile(item);
             }
         }
     }

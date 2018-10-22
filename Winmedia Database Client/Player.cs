@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Winmedia_Database_Client
 {
@@ -20,19 +22,35 @@ namespace Winmedia_Database_Client
                 audioFile.Close();
             }
             catch (NullReferenceException) { }
-
-            audioFile = new AudioFileReader(path.ToString());
-            wave.Init(audioFile);
+            try
+            {
+                audioFile = new AudioFileReader(path.ToString());
+                wave.Init(audioFile);
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("File not found", "Error");
+            }
+            
         }
 
         public static void Play()
         {
-            wave.Play();
+            try
+            {
+                wave.Play();
+            }
+            catch (Exception) { }
+            
         }
 
         public static void Stop()
         {
-            wave.Stop();
+            try
+            {
+                wave.Stop();
+            }
+            catch (Exception) { }
         }
 
         public static void Resume()

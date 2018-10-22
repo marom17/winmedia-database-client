@@ -13,7 +13,7 @@
                 <GridView>
                     <GridViewColumn Header="Artist" Width="150" DisplayMemberBinding="{Binding Artist}"/>
                     <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyDuration}"/>
+                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyTime}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

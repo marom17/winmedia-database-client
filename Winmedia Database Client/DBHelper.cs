@@ -102,5 +102,38 @@ namespace Winmedia_Database_Client
 
             return cats;
         }
+
+        static public List<Music> GetMusics(int cat)
+        {
+            List<Music> musics = new List<Music>();
+
+            String query = "SELECT TOP 100 Performer, Title, Duration, Resource, Name as \"Category\" FROM Media JOIN Path ON Path.Media = Media.IMedia " +
+                "JOIN Belong ON Belong.Media = Media.IMedia JOIN Category ON Category.ICategory = Belong.Category ";
+            if(cat >= 1)
+            {
+                query += "WHERE ICategory = " + cat + " ";
+            }
+            query += "ORDER BY IMedia DESC;";
+
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+            while (myReader.Read())
+            {
+                object[] values = new object[5];
+                values[0] = myReader["Performer"];
+                values[1] = myReader["Title"];
+                values[2] = myReader["Duration"];
+                values[3] = myReader["Resource"];
+                values[4] = myReader["Category"];
+                Music tmp = new Music(values);
+                musics.Add(tmp);
+            }
+
+            return musics;
+
+
+        }
     }
 }
