@@ -17,7 +17,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="Search" Background="LightGray" Padding="5,5,5,5" FontSize="18"/>
-                    <TextBox Name="SearchField" Grid.Column="1" Margin="5,0,5,0" FontSize="18"/>
+                    <TextBox Name="SearchField" Grid.Column="1" Margin="5,0,5,0" FontSize="18" KeyDown="SearchField_KeyDown"/>
                     <Button Grid.Column="2" Name="BtnSearch" Click="BtnSearch_Click" Content="Launch" Padding="5,5,5,5" FontSize="18"/>
                 </Grid>
                 <ListView Height="276" Margin="5,5,5,5" x:Name="MusicList" ButtonBase.Click="MusicList_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

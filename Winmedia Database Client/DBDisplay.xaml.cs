@@ -90,6 +90,19 @@ namespace Winmedia_Database_Client
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
+            SearchMusic();
+        }
+
+        private void SearchField_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                SearchMusic();
+            }
+        }
+
+        private void SearchMusic()
+        {
             this.MusicList.Items.Clear();
             new Task(() =>
             {
@@ -106,14 +119,11 @@ namespace Winmedia_Database_Client
 
                     DBHelper.disconnect();
                     this.MusicList.SelectedIndex = 0;
-                    if(this.MusicList.SelectedItem != null)
+                    if (this.MusicList.SelectedItem != null)
                     {
                         PlayerWindow.LoadFile((Music)this.MusicList.SelectedItem);
                     }
                 });
-
-                
-
             }).Start();
         }
     }
