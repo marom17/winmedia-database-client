@@ -22,6 +22,8 @@ namespace Winmedia_Database_Client
         protected override void OnStartup(StartupEventArgs e)
         {
             Config.Init();
+            /*DBHelper.connect();
+            DBHelper.disconnect();*/
         }
     }
 }

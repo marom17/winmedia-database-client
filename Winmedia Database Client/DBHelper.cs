@@ -85,5 +85,22 @@ namespace Winmedia_Database_Client
 
             return 0;
         }
+
+        static public Dictionary<String,String> getCategory()
+        {
+            Dictionary<String, String> cats = new Dictionary<string, string>();
+
+            SqlDataReader myReader = null;
+            String query = "SELECT ICategory, Container, Name FROM Category;";
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+            while (myReader.Read())
+            {
+                cats.Add(myReader["ICategory"].ToString(), myReader["Name"].ToString());
+            }
+
+            return cats;
+        }
     }
 }
