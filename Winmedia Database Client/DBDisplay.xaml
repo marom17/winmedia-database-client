@@ -5,22 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Winmedia_Database_Client"
       mc:Ignorable="d" d:DesignWidth="716"
-      Title="DBDisplay" Height="320.41">
+      Title="DBDisplay" Height="320">
 
     <Grid>
-        <ListView HorizontalAlignment="Left" Height="320" Margin="0,-1,0,0" VerticalAlignment="Top" Width="716" Name="MusicList" GridViewColumnHeader.Click="MusicList_Click">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Artist" Width="150" DisplayMemberBinding="{Binding Artist}"/>
-                    <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding StringTime}"/>
-                </GridView>
-            </ListView.View>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+        <Border Background="White" BorderBrush="Silver" BorderThickness="1">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                <Grid Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Search" Background="LightGray" Padding="5,5,5,5" FontSize="18"/>
+                    <TextBox Name="SearchField" Grid.Column="1" Margin="5,0,5,0" FontSize="14"/>
+                    <Button Grid.Column="2" Name="BtnSearch" Click="BtnSearch_Click" Content="Launch" Padding="5,5,5,5" FontSize="18"/>
+                </Grid>
+                <ListView Height="276" Margin="5,5,5,5" x:Name="MusicList" ButtonBase.Click="MusicList_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Artist" Width="150" DisplayMemberBinding="{Binding Artist}"/>
+                            <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                            <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding StringTime}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <EventSetter Event="UIElement.PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+        </Border>
     </Grid>
+
 </Page>

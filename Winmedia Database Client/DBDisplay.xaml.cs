@@ -91,5 +91,10 @@ namespace Winmedia_Database_Client
             
             
         }
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
