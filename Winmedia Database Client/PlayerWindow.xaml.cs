@@ -38,13 +38,21 @@ namespace Winmedia_Database_Client
                 MMDevice defaultDevice = devEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
 
                 var peaks = defaultDevice.AudioMeterInformation.PeakValues;
+                float left = 0;
+                float right = 0;
 
                 Debug.WriteLine("Sending Volume level through default");
                 while (!cs.IsCancellationRequested)
                 {
                     this.Dispatcher.BeginInvoke((Action)delegate () {
-                        this.LeftBar.Value = (int)(peaks[0]*100);
-                        this.RightBar.Value = (int)(peaks[1] * 100);
+                        left = (peaks[0] * 100);
+                        right = (peaks[1] * 100);
+
+                        this.LeftBar.Foreground = LevelHelper.getColor(left);
+                        this.RightBar.Foreground = LevelHelper.getColor(right);
+
+                        this.LeftBar.Value = left;
+                        this.RightBar.Value = right;
                     });
                     Debug.WriteLine("\rCurrent Level: " + peaks[0] + "/" + peaks[1]);
                     Thread.Sleep(500);
