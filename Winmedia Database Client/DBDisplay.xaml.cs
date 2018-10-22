@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,10 @@ namespace Winmedia_Database_Client
     /// </summary>
     public partial class DBDisplay : Page
     {
+        private Boolean ArtistAsc = false;
+        private Boolean TitleAsc = false;
+        private Boolean DurationAsc = false;
+
         public DBDisplay()
         {
             InitializeComponent();
@@ -35,6 +41,13 @@ namespace Winmedia_Database_Client
                     });
                 }
                 DBHelper.disconnect();
+
+                this.Dispatcher.BeginInvoke((Action)delegate ()
+                {
+                    this.MusicList.SelectedIndex = 0;
+                    PlayerWindow.LoadFile((Music)this.MusicList.SelectedItem);
+                });
+
             }).Start();
         }
 
@@ -45,6 +58,38 @@ namespace Winmedia_Database_Client
             {
                 PlayerWindow.LoadFile(item);
             }
+        }
+
+        private void MusicList_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(this.MusicList.Items);
+            view.SortDescriptions.Clear();
+            switch (headerClicked.Content)
+            {
+                case "Artist":
+                    view.SortDescriptions.Add(new SortDescription("Artist", ArtistAsc? ListSortDirection.Descending: ListSortDirection.Ascending));
+                    ArtistAsc = !ArtistAsc;
+                    break;
+
+                case "Title":
+                    view.SortDescriptions.Add(new SortDescription("Title", TitleAsc ? ListSortDirection.Descending : ListSortDirection.Ascending));
+                    TitleAsc = !TitleAsc;
+                    break;
+
+                case "Duration":
+                    view.SortDescriptions.Add(new SortDescription("Duration", DurationAsc ? ListSortDirection.Descending : ListSortDirection.Ascending));
+                    DurationAsc = !DurationAsc;
+                    break;
+            }
+
+            view.Refresh();
+            
+            
+            
+            
+            
         }
     }
 }

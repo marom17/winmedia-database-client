@@ -8,12 +8,12 @@
       Title="DBDisplay" Height="320.41">
 
     <Grid>
-        <ListView HorizontalAlignment="Left" Height="320" Margin="0,-1,0,0" VerticalAlignment="Top" Width="716" Name="MusicList">
+        <ListView HorizontalAlignment="Left" Height="320" Margin="0,-1,0,0" VerticalAlignment="Top" Width="716" Name="MusicList" GridViewColumnHeader.Click="MusicList_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Artist" Width="150" DisplayMemberBinding="{Binding Artist}"/>
                     <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyTime}"/>
+                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding StringTime}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

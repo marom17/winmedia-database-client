@@ -26,7 +26,6 @@ namespace Winmedia_Database_Client
     {
         private CancellationTokenSource ts;
         private Task getPeaks;
-        private Boolean isPlaying = false;
         private TimeSpan Duration;
         private static Music playing;
 
@@ -43,8 +42,7 @@ namespace Winmedia_Database_Client
                 var peaks = defaultDevice.AudioMeterInformation.PeakValues;
                 float left = 0;
                 float right = 0;
-
-                Debug.WriteLine("Sending Volume level through default");
+                
                 while (!cs.IsCancellationRequested)
                 {
                     this.Dispatcher.BeginInvoke((Action)delegate () {
@@ -57,11 +55,15 @@ namespace Winmedia_Database_Client
                         this.LeftBar.Value = left;
                         this.RightBar.Value = right;
 
-                        if (isPlaying)
-                        {
+                        try{
                             TimeSpan pTime = Player.Time();
-                            this.Timer.Text = String.Format("{0:2D}:{1:2D}/{2:2D}:{3:2D}", (int)pTime.TotalMinutes,pTime.Seconds,(int)Duration.TotalMinutes,Duration.Seconds);
+                            this.Timer.Text = String.Format("{0:00}:{1:00}/{2:00}:{3:00}", (int)pTime.TotalMinutes, (double)pTime.Seconds, (int)Duration.TotalMinutes, (double)Duration.Seconds);
+                            this.Duration = playing.PrettyTime;
+                            this.TBArtiste.Text = playing.Artist;
+                            this.TBTitle.Text = playing.Title;
                         }
+                        catch (Exception) { }
+                        
                     });
                     Thread.Sleep(250);
                 }
@@ -83,21 +85,21 @@ namespace Winmedia_Database_Client
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             Player.Play();
-            this.Duration = new TimeSpan(0, 0, playing.Duration);
-            this.TBArtiste.Text = playing.Artist;
-            this.TBTitle.Text = playing.Title;
-            this.isPlaying = true;
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             Player.Stop();
-            this.isPlaying = false;
         }
 
         public static void LoadFile(Music file)
         {
             playing = file;
+            try
+            {
+                Player.Stop();
+            }
+            catch (Exception) { }
             Player.Load(file.FilePath);
         }
     }

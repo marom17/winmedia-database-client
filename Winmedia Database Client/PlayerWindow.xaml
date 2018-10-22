@@ -15,8 +15,8 @@
                 <ProgressBar HorizontalAlignment="Left" Height="121" Margin="62,10,0,0" VerticalAlignment="Top" Width="23" Orientation="Vertical" Name="LeftBar"/>
                 <ProgressBar HorizontalAlignment="Left" Height="121" Margin="103,10,0,0" VerticalAlignment="Top" Width="23" Orientation="Vertical" Name="RightBar"/>
                 <TextBlock HorizontalAlignment="Left" Margin="10,222,0,0" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Name="Timer" Width="165" TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Margin="10,142,0,0" TextWrapping="Wrap" Text="Artist" VerticalAlignment="Top" Width="168" Name="TBArtiste"/>
-                <TextBlock HorizontalAlignment="Left" Margin="10,163,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Width="168" Name="TBTitle"/>
+                <TextBlock HorizontalAlignment="Left" Margin="10,142,0,0" TextWrapping="NoWrap" Text="Artist" VerticalAlignment="Top" Width="168" MaxWidth="168" Name="TBArtiste"/>
+                <TextBlock HorizontalAlignment="Left" Margin="10,163,0,0" TextWrapping="NoWrap" Text="Title" VerticalAlignment="Top" Width="168" MaxWidth="168" Name="TBTitle"/>
             </Grid>
         </Border>
     </Page.Content>

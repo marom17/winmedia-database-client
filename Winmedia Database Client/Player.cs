@@ -31,6 +31,9 @@ namespace Winmedia_Database_Client
             {
                 MessageBox.Show("File not found", "Error");
             }
+            catch (DirectoryNotFoundException) {
+                MessageBox.Show("File not found", "Error");
+            }
             
         }
 
