@@ -35,7 +35,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListView Name="ListFiles" Grid.Column="0" Grid.Row="1">
+            <ListView Name="ListFiles" Grid.Column="0" Grid.Row="1" AllowDrop="True" Drop="ListFiles_Drop">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />

@@ -40,9 +40,9 @@ namespace Winmedia_Database_Client
             wave.Resume();
         }
 
-        public static double Time()
+        public static TimeSpan Time()
         {
-            return audioFile.CurrentTime.TotalSeconds;
+            return audioFile.CurrentTime;
         }
 
         public static double Reposition(double seconds)

@@ -26,7 +26,6 @@ namespace Winmedia_Database_Client
 
         private ConfigWindow _cfgWin;
         private ImportWindow _imWin;
-        private PlayerWindow _plWin;
 
         TextBoxOutputter outputter;
 
@@ -37,12 +36,8 @@ namespace Winmedia_Database_Client
             outputter = new TextBoxOutputter(TestBox);
             Console.SetOut(outputter);
             Console.WriteLine("Started");
-            //this.RightFrame.Navigate(new PlayerWindow());
             this.RightFrame.Source = new Uri("PlayerWindow.xaml",UriKind.Relative);
-            //this.RightFrame.Visibility = Visibility.Visible;
-
-            
-            
+            this.DBDisplay.Source = new Uri("DBDisplay.xaml", UriKind.Relative);
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -80,7 +75,6 @@ namespace Winmedia_Database_Client
                     if (formatOk)
                     {
                         toImport.Add(file);
-                        AudioInfo.Info(file);
                     }
                 }
                 if (toImport.Count > 0)

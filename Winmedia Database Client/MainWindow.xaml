@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winmedia_Database_Client"
         mc:Ignorable="d"
-        Title="WinMedia Database Client" Height="450" Width="800"
+        Title="WinMedia Database Client" Height="625" Width="950"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Margin="21,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="245" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
-        <Button Content="Config" HorizontalAlignment="Left" Margin="330,75,0,0" VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Margin="555,62,0,0" Stroke="Black" VerticalAlignment="Top" Width="245" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
+        <Button Content="Config" HorizontalAlignment="Left" Margin="838,48,0,0" VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
 
-        <TextBox x:Name="TestBox" Margin="10,173,610.6,10"/>
-        <Frame Content="Frame" HorizontalAlignment="Left" Height="335" Margin="581,75,0,0" VerticalAlignment="Top" Width="203" Name="RightFrame"/>
+        <TextBox x:Name="TestBox" Margin="611,154,10,350.2"/>
+        <Frame Content="Frame" HorizontalAlignment="Left" Height="335" Margin="731,250,0,0" VerticalAlignment="Top" Width="203" Name="RightFrame"/>
+        <Frame Content="Frame" HorizontalAlignment="Left" Height="335" VerticalAlignment="Top" Width="716" Margin="10,250,0,0" Name="DBDisplay"/>
+
 
     </Grid>
 </Window>

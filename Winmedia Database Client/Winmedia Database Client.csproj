@@ -75,6 +75,9 @@
     <Compile Include="ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DBDisplay.xaml.cs">
+      <DependentUpon>DBDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DBHelper.cs" />
     <Compile Include="ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
@@ -91,6 +94,10 @@
     <Compile Include="TextBoxOutputter.cs" />
     <Compile Include="Transcoder.cs" />
     <Page Include="ConfigWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DBDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,7 +24,6 @@ namespace Winmedia_Database_Client
     {
         private Progress _pgWin;
 
-
         public ImportWindow(List<String> files)
         {
             InitializeComponent();
@@ -113,6 +112,38 @@ namespace Winmedia_Database_Client
         private void BtnStop_Click(object sender, RoutedEventArgs e)
         {
             Player.Stop();
+        }
+
+        private void ListFiles_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                List<String> toImport = new List<string>();
+                foreach (var file in files)
+                {
+                    bool formatOk = false;
+                    foreach (var fm in Config.Format)
+                    {
+                        if (file.ToLower().Contains(fm))
+                        {
+                            formatOk = true;
+                        }
+                    }
+                    if (formatOk)
+                    {
+                        toImport.Add(file);
+                    }
+                }
+                if (toImport.Count > 0)
+                {
+                    foreach (var file in toImport)
+                    {
+                        this.ListFiles.Items.Add(new Music(file));
+                    }
+                }
+
+            }
         }
     }
 }

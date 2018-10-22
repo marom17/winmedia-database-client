@@ -26,6 +26,8 @@ namespace Winmedia_Database_Client
     {
         private CancellationTokenSource ts;
         private Task getPeaks;
+        private Boolean isPlaying = false;
+        private TimeSpan Duration;
 
 
         public PlayerWindow()
@@ -53,11 +55,15 @@ namespace Winmedia_Database_Client
 
                         this.LeftBar.Value = left;
                         this.RightBar.Value = right;
+
+                        if (isPlaying)
+                        {
+                            TimeSpan pTime = Player.Time();
+                            this.Timer.Text = String.Format("{0:2D}:{1:2D}/{2:2D}:{3:2D}", (int)pTime.TotalMinutes,pTime.Seconds,(int)Duration.TotalMinutes,Duration.Seconds);
+                        }
                     });
-                    Debug.WriteLine("\rCurrent Level: " + peaks[0] + "/" + peaks[1]);
-                    Thread.Sleep(500);
+                    Thread.Sleep(250);
                 }
-                Debug.WriteLine("Task completed");
                 
             },cs);
             getPeaks.Start();
@@ -71,6 +77,26 @@ namespace Winmedia_Database_Client
                 ts.Cancel();
             }
             catch (Exception) { }
+        }
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            Player.Play();
+            this.isPlaying = true;
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            Player.Stop();
+            this.isPlaying = false;
+        }
+
+        public void LoadFile(Music file)
+        {
+            this.Duration = new TimeSpan(0,0,file.Duration);
+            this.TBArtiste.Text = file.Artist;
+            this.TBTitle.Text = file.Title;
+            Player.Load(file.FilePath);
         }
     }
 }

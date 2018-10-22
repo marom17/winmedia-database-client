@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Winmedia_Database_Client
 {
-    class Music
+    public class Music
     {
         private String _filePath;
         private String _artist;
@@ -21,6 +21,7 @@ namespace Winmedia_Database_Client
         private int _trimout; //Same as cutout
         private int _stop; // Different of trimout and cutout
         private int _cutout; //Same as trimout
+        private TimeSpan _prettyDuration;
 
         public string FilePath { get => _filePath; set => _filePath = value; }
         public int Duration { get => _duration; set => _duration = value; }
@@ -35,6 +36,7 @@ namespace Winmedia_Database_Client
         public int Start { get => _start; set => _start = value; }
         public string FileName { get => _fileName; set => _fileName = value; }
         public int FileLength { get => _fileLength; set => _fileLength = value; }
+        public TimeSpan PrettyDuration { get => _prettyDuration; set => _prettyDuration = value; }
 
         public Music(String uri)
         {
@@ -46,6 +48,7 @@ namespace Winmedia_Database_Client
             _fileName = info["FileName"];
             _fileLength = Convert.ToInt32(info["FileLength"]);
             _duration = Convert.ToInt32(info["Duration"]);
+            _prettyDuration = new TimeSpan(0, 0, _duration);
             _intro = 0;
             _start = 0;
             _next = _duration;
