@@ -11,11 +11,18 @@ namespace Winmedia_Database_Client
     class Player
     {
         private static WaveOut wave = new WaveOut();
+        private static AudioFileReader audioFile;
 
         public static void Load(String path)
         {
-            var x = new AudioFileReader(path.ToString());
-            wave.Init(x);
+            try
+            {
+                audioFile.Close();
+            }
+            catch (NullReferenceException) { }
+
+            audioFile = new AudioFileReader(path.ToString());
+            wave.Init(audioFile);
         }
 
         public static void Play()
@@ -33,14 +40,30 @@ namespace Winmedia_Database_Client
             wave.Resume();
         }
 
-        public static long Time()
+        public static double Time()
         {
-            return wave.GetPosition();
+            return audioFile.CurrentTime.TotalSeconds;
+        }
+
+        public static double Reposition(double seconds)
+        {
+            audioFile.CurrentTime = TimeSpan.FromSeconds(seconds);
+            return seconds;
         }
 
         public static void Dispose()
         {
             wave.Dispose();
+        }
+
+        public static float Volume()
+        {
+            return audioFile.Volume;
+        }
+
+        public static double TotalTime()
+        {
+            return audioFile.TotalTime.TotalSeconds;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Winmedia_Database_Client
 
         private ConfigWindow _cfgWin;
         private ImportWindow _imWin;
+        private PlayerWindow _plWin;
 
         TextBoxOutputter outputter;
 
@@ -36,6 +37,9 @@ namespace Winmedia_Database_Client
             outputter = new TextBoxOutputter(TestBox);
             Console.SetOut(outputter);
             Console.WriteLine("Started");
+            //this.RightFrame.Navigate(new PlayerWindow());
+            this.RightFrame.Source = new Uri("PlayerWindow.xaml",UriKind.Relative);
+            //this.RightFrame.Visibility = Visibility.Visible;
 
             
             
