@@ -86,15 +86,35 @@ namespace Winmedia_Database_Client
 
             view.Refresh();
             
-            
-            
-            
-            
         }
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
+            this.MusicList.Items.Clear();
+            new Task(() =>
+            {
+                DBHelper.connect();
 
+                this.Dispatcher.BeginInvoke((Action)delegate ()
+                {
+                    List<Music> MusList = DBHelper.GetMusics(this.SearchField.Text);
+
+                    foreach (var music in MusList)
+                    {
+                        this.MusicList.Items.Add(music);
+                    }
+
+                    DBHelper.disconnect();
+                    this.MusicList.SelectedIndex = 0;
+                    if(this.MusicList.SelectedItem != null)
+                    {
+                        PlayerWindow.LoadFile((Music)this.MusicList.SelectedItem);
+                    }
+                });
+
+                
+
+            }).Start();
         }
     }
 }

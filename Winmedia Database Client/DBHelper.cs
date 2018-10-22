@@ -12,12 +12,14 @@ namespace Winmedia_Database_Client
     class DBHelper
     {
         static private SqlConnection _db;
+        static private String _baseSearchQuery = "SELECT TOP 1000 Performer, Title, Duration, Resource, Name as \"Category\" FROM Media JOIN Path ON Path.Media = Media.IMedia " +
+                "JOIN Belong ON Belong.Media = Media.IMedia JOIN Category ON Category.ICategory = Belong.Category ";
 
         static public Boolean connect()
         {
             String conn = String.Format("user id={0};" +
                                        "password={1};server={2};" +
-                                       "MultipleActiveResultSets = true;"+
+                                       "MultipleActiveResultSets = true;" +
                                        //"Trusted_Connection=yes;" +
                                        "database={3}; " +
                                        "connection timeout=30", Config.DBUser, Config.DBPass, Config.DBHost, Config.DB);
@@ -48,7 +50,7 @@ namespace Winmedia_Database_Client
             {
                 _db.Close();
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -73,7 +75,7 @@ namespace Winmedia_Database_Client
         {
             SqlDataReader myReader = null;
             String query = "SELECT TOP 1 " + IdName + " FROM " + table + " ORDER BY " + IdName + " DESC;";
-            SqlCommand myCommand = new SqlCommand(query,_db);
+            SqlCommand myCommand = new SqlCommand(query, _db);
 
             myReader = myCommand.ExecuteReader();
             while (myReader.Read())
@@ -86,7 +88,7 @@ namespace Winmedia_Database_Client
             return 0;
         }
 
-        static public Dictionary<String,String> getCategory()
+        static public Dictionary<String, String> getCategory()
         {
             Dictionary<String, String> cats = new Dictionary<string, string>();
 
@@ -107,9 +109,8 @@ namespace Winmedia_Database_Client
         {
             List<Music> musics = new List<Music>();
 
-            String query = "SELECT TOP 100 Performer, Title, Duration, Resource, Name as \"Category\" FROM Media JOIN Path ON Path.Media = Media.IMedia " +
-                "JOIN Belong ON Belong.Media = Media.IMedia JOIN Category ON Category.ICategory = Belong.Category ";
-            if(cat >= 1)
+            String query = _baseSearchQuery;
+            if (cat >= 1)
             {
                 query += "WHERE ICategory = " + cat + " ";
             }
@@ -119,21 +120,50 @@ namespace Winmedia_Database_Client
             SqlCommand myCommand = new SqlCommand(query, _db);
 
             myReader = myCommand.ExecuteReader();
-            while (myReader.Read())
-            {
-                object[] values = new object[5];
-                values[0] = myReader["Performer"];
-                values[1] = myReader["Title"];
-                values[2] = myReader["Duration"];
-                values[3] = myReader["Resource"];
-                values[4] = myReader["Category"];
-                Music tmp = new Music(values);
-                musics.Add(tmp);
-            }
+
+            getValues(myReader, musics);
 
             return musics;
 
 
+        }
+
+        static public List<Music> GetMusics(String search)
+        {
+            List<Music> musics = new List<Music>();
+
+            String query = _baseSearchQuery;
+
+            if(search != "")
+            {
+                query += "WHERE Performer LIKE '%"+search+"%' OR Title LIKE '%"+search+"%' ";
+            }
+
+            query += "ORDER BY IMedia DESC;";
+
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+
+            getValues(myReader, musics);
+
+            return musics;
+        }
+
+        static private void getValues(SqlDataReader reader, List<Music> list)
+        {
+            while (reader.Read())
+            {
+                object[] values = new object[5];
+                values[0] = reader["Performer"];
+                values[1] = reader["Title"];
+                values[2] = reader["Duration"];
+                values[3] = reader["Resource"];
+                values[4] = reader["Category"];
+                Music tmp = new Music(values);
+                list.Add(tmp);
+            }
         }
     }
 }
