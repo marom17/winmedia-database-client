@@ -41,7 +41,6 @@ namespace Winmedia_Database_Client
         public int FileLength { get => _fileLength; set => _fileLength = value; }
         public TimeSpan PrettyTime { get => _prettyTime; set => _prettyTime = value; }
         public int TimeLength { get => _timeLength; set => _timeLength = value; }
-        public string StringTime { get => _stringTime; set => _stringTime = value; }
 
         public Music(object[] info)
         {
@@ -52,7 +51,6 @@ namespace Winmedia_Database_Client
             //_fileLength = Convert.ToInt32(info["FileLength"]);
             _timeLength = ((int)info[2]);
             _prettyTime = new TimeSpan(0, 0, (int)(_timeLength / 1000));
-            _stringTime = String.Format("{0:00}:{1:00}",_prettyTime.TotalMinutes,_prettyTime.Seconds);
             //_prettyDuration = new TimeSpan(0, 0, _duration);
             //_intro = 0;
             //_start = 0;
