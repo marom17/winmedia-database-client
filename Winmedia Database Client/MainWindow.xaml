@@ -8,13 +8,29 @@
         Title="WinMedia Database Client" Height="625" Width="950"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Margin="555,62,0,0" Stroke="Black" VerticalAlignment="Top" Width="245" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
-        <Button Content="Config" HorizontalAlignment="Left" Margin="838,48,0,0" VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Stroke="Black" VerticalAlignment="Top" Width="245" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
+            <Button Content="Config" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
 
-        <TextBox x:Name="TestBox" Margin="611,154,10,350.2"/>
-        <Frame Content="Frame" HorizontalAlignment="Left" Height="335" Margin="731,250,0,0" VerticalAlignment="Top" Width="203" Name="RightFrame"/>
-        <Frame Content="Frame" HorizontalAlignment="Left" Height="335" VerticalAlignment="Top" Width="716" Margin="10,250,0,0" Name="DBDisplay"/>
+            <TextBox x:Name="TestBox"/>
+        </StackPanel>
 
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Frame Content="Frame" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Name="DBDisplay" Grid.Column="0" Margin="5,5,5,5"/>
+            <Frame Content="Frame" HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="RightFrame" Grid.Column="1" Margin="5,5,5,5"/>            
+        </Grid>
+        
 
     </Grid>
 </Window>

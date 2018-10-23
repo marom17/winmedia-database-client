@@ -4,13 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Winmedia_Database_Client"
-      mc:Ignorable="d" d:DesignWidth="716"
-      Title="DBDisplay" Height="320">
+      mc:Ignorable="d"
+      Title="DBDisplay" d:DesignHeight="335" d:DesignWidth="716"
+      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
     <Grid>
         <Border Background="White" BorderBrush="Silver" BorderThickness="1">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
-                <Grid Margin="5,0,5,0">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid Margin="5,0,5,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>

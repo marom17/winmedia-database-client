@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Winmedia_Database_Client"
       mc:Ignorable="d"
-      Title="PlayerWindow" Height="335" Width="185">
+      Title="PlayerWindow" Height="335" Width="185"
+      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Page.Content>
         <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
             <Grid>            
