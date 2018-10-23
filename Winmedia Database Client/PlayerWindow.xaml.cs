@@ -28,7 +28,7 @@ namespace Winmedia_Database_Client
         private Task getPeaks;
         private TimeSpan Duration;
         private static Music playing;
-
+        private Boolean slideIsGrab = false;
 
         public PlayerWindow()
         {
@@ -61,6 +61,10 @@ namespace Winmedia_Database_Client
                             this.Duration = playing.PrettyTime;
                             this.TBArtiste.Text = playing.Artist;
                             this.TBTitle.Text = playing.Title;
+                            if (!this.slideIsGrab)
+                            {
+                                this.Time.Value = pTime.TotalSeconds;
+                            }                            
                         }
                         catch (Exception) { }
                         
@@ -85,6 +89,8 @@ namespace Winmedia_Database_Client
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             Player.Play();
+            this.Time.Maximum = this.Duration.TotalSeconds;
+            this.Time.Value = 0;
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -101,6 +107,22 @@ namespace Winmedia_Database_Client
             }
             catch (Exception) { }
             Player.Load(file.FilePath);
+        }
+
+        private void Time_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            this.slideIsGrab = true;
+        }
+
+        private void Time_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            try
+            {
+                Player.Reposition(this.Time.Value);
+            }
+            catch (Exception) { }
+
+            this.slideIsGrab = false;
         }
     }
 }

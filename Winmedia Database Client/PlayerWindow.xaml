@@ -11,7 +11,7 @@
             <Grid>            
                 <Button Content="Play" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="75" Name="Play" Click="Play_Click"/>
                 <Button Content="Stop" HorizontalAlignment="Left" Margin="103,258,0,0" VerticalAlignment="Top" Width="75" Name="Stop" Click="Stop_Click"/>
-                <Slider HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="168" Name="Time"/>
+                <Slider HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="168" Name="Time" Thumb.DragStarted="Time_DragStarted" Thumb.DragCompleted="Time_DragCompleted"/>
                 <ProgressBar HorizontalAlignment="Left" Height="121" Margin="62,10,0,0" VerticalAlignment="Top" Width="23" Orientation="Vertical" Name="LeftBar"/>
                 <ProgressBar HorizontalAlignment="Left" Height="121" Margin="103,10,0,0" VerticalAlignment="Top" Width="23" Orientation="Vertical" Name="RightBar"/>
                 <TextBlock HorizontalAlignment="Left" Margin="10,222,0,0" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Name="Timer" Width="165" TextAlignment="Center"/>
