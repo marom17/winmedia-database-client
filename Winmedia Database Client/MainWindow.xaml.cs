@@ -31,13 +31,15 @@ namespace Winmedia_Database_Client
 
         public MainWindow()
         {
+            this.Hide();
             InitializeComponent();
 
             outputter = new TextBoxOutputter(TestBox);
             Console.SetOut(outputter);
             Console.WriteLine("Started");
-            this.RightFrame.Source = new Uri("PlayerWindow.xaml",UriKind.Relative);
-            this.DBDisplay.Source = new Uri("DBDisplay.xaml", UriKind.Relative);
+            this.DBDisplay.Navigate(new DBDisplay(this));
+            this.RightFrame.Navigate(new PlayerWindow());
+            this.Show();
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -57,37 +59,28 @@ namespace Winmedia_Database_Client
             base.OnClosing(e);
         }
 
-        private void Rectangle_Drop(object sender, DragEventArgs e)
+        public void StartImport(string[] files)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            List<String> toImport = new List<string>();
+            foreach (var file in files)
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                List<String> toImport = new List<string>();
-                foreach(var file in files){
-                    bool formatOk = false;
-                    foreach(var fm in Config.Format)
-                    {
-                        if (file.ToLower().Contains(fm))
-                        {
-                            formatOk = true;
-                        }
-                    }
-                    if (formatOk)
-                    {
-                        toImport.Add(file);
-                    }
-                }
-                if (toImport.Count > 0)
+                bool formatOk = false;
+                foreach (var fm in Config.Format)
                 {
-                    _imWin = new ImportWindow(toImport);
+                    if (file.ToLower().Contains(fm))
+                    {
+                        formatOk = true;
+                    }
                 }
-                
+                if (formatOk)
+                {
+                    toImport.Add(file);
+                }
             }
-        }
-
-        private void Rectangle_DragEnter(object sender, DragEventArgs e)
-        {
-
+            if (toImport.Count > 0)
+            {
+                _imWin = new ImportWindow(toImport);
+            }
         }
 
         private void ConfigBut_Click(object sender, RoutedEventArgs e)

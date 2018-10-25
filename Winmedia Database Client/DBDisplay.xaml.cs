@@ -25,9 +25,11 @@ namespace Winmedia_Database_Client
         private Boolean ArtistAsc = false;
         private Boolean TitleAsc = false;
         private Boolean DurationAsc = false;
+        private MainWindow parent;
 
-        public DBDisplay()
+        public DBDisplay(MainWindow parent)
         {
+            this.parent = parent;
             InitializeComponent();
 
             new Task(() => {
@@ -77,11 +79,6 @@ namespace Winmedia_Database_Client
                     view.SortDescriptions.Add(new SortDescription("Title", TitleAsc ? ListSortDirection.Descending : ListSortDirection.Ascending));
                     TitleAsc = !TitleAsc;
                     break;
-
-                case "Duration":
-                    view.SortDescriptions.Add(new SortDescription("Duration", DurationAsc ? ListSortDirection.Descending : ListSortDirection.Ascending));
-                    DurationAsc = !DurationAsc;
-                    break;
             }
 
             view.Refresh();
@@ -125,6 +122,15 @@ namespace Winmedia_Database_Client
                     }
                 });
             }).Start();
+        }
+
+        private void MusicList_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                parent.StartImport(files);
+            }
         }
     }
 }

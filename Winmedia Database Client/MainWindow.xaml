@@ -16,7 +16,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="68" Stroke="Black" VerticalAlignment="Top" Width="245" AllowDrop="True" Drop="Rectangle_Drop" DragEnter="Rectangle_DragEnter"/>
             <Button Content="Config" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
 
             <TextBox x:Name="TestBox"/>

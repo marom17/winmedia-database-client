@@ -27,17 +27,7 @@ namespace Winmedia_Database_Client
                 audioFile = new AudioFileReader(path.ToString());
                 wave.Init(audioFile);
             }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("File not found", "Error");
-            }
-            catch (DirectoryNotFoundException) {
-                MessageBox.Show("File not found", "Error");
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("File not found", "Error");
-            }
+            catch (Exception) { }
             
         }
 
@@ -47,7 +37,9 @@ namespace Winmedia_Database_Client
             {
                 wave.Play();
             }
-            catch (Exception) { }
+            catch (Exception) {
+                MessageBox.Show("File not found!", "Error");
+            }
             
         }
 

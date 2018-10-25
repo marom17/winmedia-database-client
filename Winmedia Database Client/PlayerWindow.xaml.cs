@@ -56,15 +56,23 @@ namespace Winmedia_Database_Client
                         this.RightBar.Value = right;
 
                         try{
-                            TimeSpan pTime = Player.Time();
-                            this.Timer.Text = String.Format("{0:00}:{1:00}/{2:00}:{3:00}", (int)pTime.TotalMinutes, (double)pTime.Seconds, (int)Duration.TotalMinutes, (double)Duration.Seconds);
+                            try
+                            {
+                                TimeSpan pTime = Player.Time();
+                                this.Timer.Text = String.Format("{0:00}:{1:00}/{2:00}:{3:00}", (int)pTime.TotalMinutes, (double)pTime.Seconds, (int)Duration.TotalMinutes, (double)Duration.Seconds);
+                                if (!this.slideIsGrab)
+                                {
+                                    this.Time.Value = pTime.TotalSeconds;
+                                }
+                            }
+                            catch (Exception) {
+                                this.Timer.Text = String.Format("00:00/{0:00}:{1:00}", (int)Duration.TotalMinutes, (double)Duration.Seconds);
+                                this.Time.Value = 0;
+                            }
+                            
                             this.Duration = playing.PrettyTime;
                             this.TBArtiste.Text = playing.Artist;
                             this.TBTitle.Text = playing.Title;
-                            if (!this.slideIsGrab)
-                            {
-                                this.Time.Value = pTime.TotalSeconds;
-                            }                            
                         }
                         catch (Exception) { }
                         
@@ -88,9 +96,14 @@ namespace Winmedia_Database_Client
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            Player.Play();
-            this.Time.Maximum = this.Duration.TotalSeconds;
-            this.Time.Value = 0;
+            try
+            {
+                Player.Play();
+                this.Time.Maximum = this.Duration.TotalSeconds;
+                this.Time.Value = 0;
+            }
+            catch (Exception) { }
+            
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)

@@ -11,7 +11,7 @@
     <Grid>
         <Border Background="White" BorderBrush="Silver" BorderThickness="1">
             <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Grid Margin="5,0,5,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid Margin="5,5,5,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -21,7 +21,7 @@
                     <TextBox Name="SearchField" Grid.Column="1" Margin="5,0,5,0" FontSize="18" KeyDown="SearchField_KeyDown"/>
                     <Button Grid.Column="2" Name="BtnSearch" Click="BtnSearch_Click" Content="Launch" Padding="5,5,5,5" FontSize="18"/>
                 </Grid>
-                <ListView Height="276" Margin="5,5,5,5" x:Name="MusicList" ButtonBase.Click="MusicList_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <ListView Height="276" Margin="5,5,5,5" x:Name="MusicList" ButtonBase.Click="MusicList_Click" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="True" Drop="MusicList_Drop">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Artist" Width="150" DisplayMemberBinding="{Binding Artist}"/>
