@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Winmedia_Database_Client
@@ -15,10 +16,7 @@ namespace Winmedia_Database_Client
 
         public static Boolean Encode(Music file, int attempts)
         {
-            Console.WriteLine("Encoding " + file);
-
             String path = file.FilePath;
-            Console.WriteLine(path);
             
             var md5 = MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(DateTime.Now.ToString());
@@ -26,9 +24,6 @@ namespace Winmedia_Database_Client
             var fileName = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant() + ".sam";
 
             String dest = @"import\" + fileName;
-            
-
-            Console.WriteLine(dest);
 
             String arg = _options[0] + path + _options[1] + dest + _options[2];
 
@@ -51,6 +46,7 @@ namespace Winmedia_Database_Client
 
                 // Retrieve the app's exit code
                 exitCode = proc.ExitCode;
+                Thread.Sleep(500);
                 
                 FileInfo f = new FileInfo(dest);
                 if (f.Length == 0)
@@ -76,7 +72,7 @@ namespace Winmedia_Database_Client
                     }
                     catch(Exception e)
                     {
-                        Console.WriteLine(e.Message);
+                        Debug.WriteLine(e.Message);
                     }
                     
                     

@@ -12,11 +12,15 @@ namespace Winmedia_Database_Client
     class AudioDB
     {
         private static String _importMusic = "INSERT INTO dbo.Media "+
+            "(Performer,Title,Version,Color,Duration,Start,Stop,Trimin,Trimout,Fadein,Fadeout,Alphain,Alphaout,Cutin,Cutout,Loopin,Loopout,Introin,Introout,Hookin,Hookout,Gain,Volume,Opacity,"+
+            "Stretch,Command,Flag,Jingle,JinglePosition,JingleVolume,Status,Album,Author,Composer,Disc,Track,Year,Genre,Publisher,Language,Identifier,Comment,Account,Modify,_site,_Plage) "+
             "VALUES (@performer,@title,'',0,@duration,@start,@stop,@trimin,@trimout,0,0,0,0,@cutin,@cutout,@loopin,@loopout,@introin,@introout,@hookin,@hookout,0,0,1,1,1,0,1,0,-3,"
-            +"'','','','','','','','','','','','',3,GETDATE(),'no','Aucune','','');";
+            +"'','','','','','','','','','','','',3,GETDATE(),'no','Aucune');";
 
-        private static String _importPath = "INSERT INTO dbo.Path VALUES (@media,0,2,@path,@length,0,0,1,2,2,384000,2,2,48000,1,1,0,0,0,0,0,@size,0,GETDATE());";
-        private static String _importCategory = "INSERT INTO dbo.Belong VALUES (@media,GETDATE(),@endDate,@cat)";
+        private static String _importPath = "INSERT INTO dbo.Path "
+            +"(Media,Extension,Directory,Resource,Length,Beat,Tick,Keys,Format,Audio,Bitrate,Sample,Channel,Frequency,Video,Pixel,Quality,Aspect,Frame,Width,Height,Size1,Size2,Modify) "
+            + "VALUES (@media,0,2,@path,@length,0,0,1,2,2,384000,2,2,48000,1,1,0,0,0,0,0,@size,0,GETDATE());";
+        private static String _importCategory = "INSERT INTO dbo.Belong (Media,Beginning,Ending,Category) VALUES (@media,GETDATE(),@endDate,@cat)";
         public static void ImportAudio(Music file)
         {
             DBHelper.connect();
@@ -95,8 +99,6 @@ namespace Winmedia_Database_Client
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                Console.WriteLine("Problem in db");
-                Console.WriteLine(ex.Message);
             }
 
             DBHelper.disconnect();

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Winmedia_Database_Client.helpers;
 
 namespace Winmedia_Database_Client
 {
@@ -53,14 +54,13 @@ namespace Winmedia_Database_Client
         private void ImportBtn_Click(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("Start Transcoding");
-            Console.WriteLine("Start Transcoding");
             try
             {
                 _pgWin = new Progress(this.ListFiles.Items,this);
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
         }
 

@@ -87,6 +87,7 @@ namespace Winmedia_Database_Client
         {
             String newConfig = String.Empty;
             StreamReader r = null;
+            Directory.CreateDirectory("import");
             try
             {
                 using (r = new StreamReader(_confPath))

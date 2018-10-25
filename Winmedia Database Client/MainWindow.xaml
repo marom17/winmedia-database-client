@@ -17,8 +17,6 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Button Content="Config" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
-
-            <TextBox x:Name="TestBox"/>
             <Frame Content="Frame" Name="CatFrame" Margin="5,5,5,5"/>
         </StackPanel>
 

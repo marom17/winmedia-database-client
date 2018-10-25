@@ -28,13 +28,12 @@ namespace Winmedia_Database_Client
             try
             {
                 _db.Open();
-                Console.WriteLine("DB OK");
+                Debug.WriteLine("DB open");
                 return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                Console.WriteLine("DB NOK");
                 return false;
             }
         }

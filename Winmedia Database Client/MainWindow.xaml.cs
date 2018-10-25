@@ -37,8 +37,6 @@ namespace Winmedia_Database_Client
             InitializeComponent();
 
             outputter = new TextBoxOutputter(TestBox);
-            Console.SetOut(outputter);
-            Console.WriteLine("Started");
             this.dBDisplay = new DBDisplay(this);
             this.DBDisplay.Navigate(this.dBDisplay);
             this.RightFrame.Navigate(new PlayerWindow());
