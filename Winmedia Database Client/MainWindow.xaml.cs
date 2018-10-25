@@ -39,6 +39,7 @@ namespace Winmedia_Database_Client
             Console.WriteLine("Started");
             this.DBDisplay.Navigate(new DBDisplay(this));
             this.RightFrame.Navigate(new PlayerWindow());
+            this.CatFrame.Navigate(new CatSearch());
             this.Show();
         }
 

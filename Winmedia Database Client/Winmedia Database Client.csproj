@@ -70,12 +70,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AudioDB.cs" />
-    <Compile Include="AudioInfo.cs" />
+    <Compile Include="helpers\AudioDB.cs" />
+    <Compile Include="helpers\AudioInfo.cs" />
+    <Compile Include="pages\CatSearch.xaml.cs">
+      <DependentUpon>CatSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DBDisplay.xaml.cs">
+    <Compile Include="pages\DBDisplay.xaml.cs">
       <DependentUpon>DBDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="DBHelper.cs" />
@@ -83,21 +86,25 @@
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LevelHelper.cs" />
-    <Compile Include="Music.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayerWindow.xaml.cs">
+    <Compile Include="helpers\Music.cs" />
+    <Compile Include="helpers\Player.cs" />
+    <Compile Include="pages\PlayerWindow.xaml.cs">
       <DependentUpon>PlayerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Progress.xaml.cs">
       <DependentUpon>Progress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextBoxOutputter.cs" />
-    <Compile Include="Transcoder.cs" />
+    <Compile Include="helpers\TextBoxOutputter.cs" />
+    <Compile Include="helpers\Transcoder.cs" />
+    <Page Include="pages\CatSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DBDisplay.xaml">
+    <Page Include="pages\DBDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,12 +120,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Config.cs" />
+    <Compile Include="helpers\Config.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PlayerWindow.xaml">
+    <Page Include="pages\PlayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
