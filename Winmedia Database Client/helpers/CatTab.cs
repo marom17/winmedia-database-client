@@ -20,19 +20,30 @@ namespace Winmedia_Database_Client.helpers
         {
             this.dBDisplay = dBDisplay;
             base.Header = header;
-            //base.Background = Brushes.LightGray;
-            StackPanel grid = new StackPanel();
-            grid.Background = Brushes.LightGray;
+            ScrollViewer scroll = new ScrollViewer();
+            scroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+            scroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
 
+            WrapPanel grid = new WrapPanel();
+            grid.Orientation = Orientation.Vertical;
+            grid.Background = Brushes.LightGray;
+            grid.MaxHeight = 160;
+
+            scroll.Content = grid;
             foreach (var item in cat)
             {
+                Rectangle rect = new Rectangle();
                 TextBlock catObj = new TextBlock();
                 catObj.Text = (String)item[0];
                 catObj.Name = "Cat" + item[1].ToString();
                 catObj.MouseLeftButtonUp += Cat_Click;
+                catObj.FontSize = 12;
+                catObj.Background = Brushes.WhiteSmoke;
+                catObj.Margin = new Thickness(2, 2, 2, 2);
+                catObj.Padding = new Thickness(5, 5, 5, 5);
                 grid.Children.Add(catObj);
             }
-            this.Content = grid;
+            this.Content = scroll;
 
         }
 
