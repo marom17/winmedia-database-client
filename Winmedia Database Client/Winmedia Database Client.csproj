@@ -82,7 +82,7 @@
     <Compile Include="pages\DBDisplay.xaml.cs">
       <DependentUpon>DBDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DBHelper.cs" />
+    <Compile Include="helpers\DBHelper.cs" />
     <Compile Include="ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>

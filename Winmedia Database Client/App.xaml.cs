@@ -19,11 +19,6 @@ namespace Winmedia_Database_Client
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            Config.Init();
-            /*DBHelper.connect();
-            DBHelper.disconnect();*/
-        }
+
     }
 }

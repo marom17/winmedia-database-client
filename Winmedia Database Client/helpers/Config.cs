@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Winmedia_Database_Client
 {
@@ -83,7 +84,7 @@ namespace Winmedia_Database_Client
 
         public static string EndingDate { get => _endingDate; set => _endingDate = value; }
 
-        public static void Init()
+        public static Boolean Init()
         {
             String newConfig = String.Empty;
             StreamReader r = null;
@@ -105,6 +106,17 @@ namespace Winmedia_Database_Client
                     _Category = items["Category"];
                     
                 }
+                if(_DBHost != "" && _DBUser != "" && _DBPort != "" && _DBPass != "")
+                {
+                    DBHelper.connect();
+                    _FilePath = DBHelper.getAudioPath(_folder);
+                    DBHelper.disconnect();
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             catch (FileNotFoundException)
             {
@@ -117,15 +129,12 @@ namespace Winmedia_Database_Client
                 config.Add("DB", "");
                 config.Add("Category", "");
 
-                ConfigWindow test = new ConfigWindow();
-                test.Show();
-
                 String json = JsonConvert.SerializeObject(config);
                 File.WriteAllText(_confPath, json);
+
+                return false;
             }
-            DBHelper.connect();
-            _FilePath = DBHelper.getAudioPath(_folder);
-            DBHelper.disconnect();
+            return true;
         }
 
         public static void saveConfig(ConfigWindow configWindow)

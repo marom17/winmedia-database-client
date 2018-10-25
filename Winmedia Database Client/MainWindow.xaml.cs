@@ -33,10 +33,18 @@ namespace Winmedia_Database_Client
         {
             this.Hide();
             InitializeComponent();
-            this.dBDisplay = new DBDisplay(this);
-            this.DBDisplay.Navigate(this.dBDisplay);
-            this.RightFrame.Navigate(new PlayerWindow());
-            this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
+            if (!Config.Init())
+            {
+                _cfgWin = new ConfigWindow();
+            }
+            else
+            {
+                this.dBDisplay = new DBDisplay(this);
+                this.DBDisplay.Navigate(this.dBDisplay);
+                this.RightFrame.Navigate(new PlayerWindow());
+                this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
+            }            
+            
             this.Show();
         }
 

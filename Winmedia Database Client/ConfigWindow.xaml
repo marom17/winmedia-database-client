@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Winmedia_Database_Client"
         mc:Ignorable="d"
         Title="Configuration" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Topmost="True">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="22"/>
@@ -67,6 +67,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -74,6 +75,7 @@
             </Grid.RowDefinitions>
             <Button Grid.Row="1" Grid.Column="1"  Name="SaveBt" Click="Save_Click" Content="Save"/>
             <Button Grid.Row="1" Grid.Column="2" Name="CloseBt" Click="Close_Click" Content="Close"/>
+            <Button Grid.Row="1" Grid.Column="3" Name="QuitBt" Click="Quit_Click" Content="Quit"/>
         </Grid>
     </StackPanel>
     

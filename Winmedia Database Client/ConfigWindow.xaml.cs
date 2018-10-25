@@ -47,12 +47,21 @@ namespace Winmedia_Database_Client
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             Config.saveConfig(this);
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
             this.Close();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
             this.Close();
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
