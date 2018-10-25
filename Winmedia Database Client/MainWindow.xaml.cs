@@ -29,14 +29,10 @@ namespace Winmedia_Database_Client
         private ImportWindow _imWin;
         private DBDisplay dBDisplay;
 
-        TextBoxOutputter outputter;
-
         public MainWindow()
         {
             this.Hide();
             InitializeComponent();
-
-            outputter = new TextBoxOutputter(TestBox);
             this.dBDisplay = new DBDisplay(this);
             this.DBDisplay.Navigate(this.dBDisplay);
             this.RightFrame.Navigate(new PlayerWindow());
