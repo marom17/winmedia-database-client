@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Winmedia_Database_Client.helpers;
 
 namespace Winmedia_Database_Client
 {
@@ -20,10 +21,17 @@ namespace Winmedia_Database_Client
     /// </summary>
     public partial class CatSearch : Page
     {
-        public CatSearch()
+        public CatSearch(DBDisplay dBDisplay)
         {
             InitializeComponent();
-            this.CatTab.Items.Add(new TabItem());
+            DBHelper.connect();
+            foreach(var item in DBHelper.getCatGroup())
+            {
+                List<object[]> cats = DBHelper.getCategories(item.Key);
+                this.CatTab.Items.Add(new CatTab(item.Value, cats, dBDisplay));
+            }
+            
+            DBHelper.disconnect();
         }
     }
 }

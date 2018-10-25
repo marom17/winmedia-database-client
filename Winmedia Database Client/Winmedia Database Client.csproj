@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="helpers\AudioDB.cs" />
     <Compile Include="helpers\AudioInfo.cs" />
+    <Compile Include="helpers\CatTab.cs" />
     <Compile Include="pages\CatSearch.xaml.cs">
       <DependentUpon>CatSearch.xaml</DependentUpon>
     </Compile>
@@ -85,7 +86,7 @@
     <Compile Include="ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LevelHelper.cs" />
+    <Compile Include="helpers\LevelHelper.cs" />
     <Compile Include="helpers\Music.cs" />
     <Compile Include="helpers\Player.cs" />
     <Compile Include="pages\PlayerWindow.xaml.cs">

@@ -10,12 +10,7 @@
 
     <Grid>
         <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CatTab">
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
+            
         </TabControl>
 
     </Grid>

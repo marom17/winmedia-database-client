@@ -87,18 +87,18 @@ namespace Winmedia_Database_Client
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
-            SearchMusic();
+            SearchMusic(-1);
         }
 
         private void SearchField_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
-                SearchMusic();
+                SearchMusic(-1);
             }
         }
 
-        private void SearchMusic()
+        public void SearchMusic(int cat)
         {
             this.MusicList.Items.Clear();
             new Task(() =>
@@ -107,7 +107,17 @@ namespace Winmedia_Database_Client
 
                 this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
-                    List<Music> MusList = DBHelper.GetMusics(this.SearchField.Text);
+                    List<Music> MusList;
+
+                    if(cat == -1)
+                    {
+                        MusList = DBHelper.GetMusics(this.SearchField.Text);
+                    }
+                    else
+                    {
+                        MusList = DBHelper.GetMusics(cat);
+                    }
+                    
 
                     foreach (var music in MusList)
                     {

@@ -165,5 +165,46 @@ namespace Winmedia_Database_Client
                 list.Add(tmp);
             }
         }
+
+        static public List<object[]> getCategories(int group)
+        {
+            List<object[]> categories = new List<object[]>();
+            String query = "SELECT Name, ICategory, Position, Container as Cont FROM Category " +
+                "WHERE Container = " + group + " ORDER BY Position";
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+
+            while (myReader.Read())
+            {
+                object[] values = new object[4];
+                values[0] = myReader["Name"];
+                values[1] = myReader["ICategory"];
+                values[2] = myReader["Position"];
+                values[3] = myReader["Cont"];
+
+                categories.Add(values);
+            }
+
+            return categories;
+        }
+
+        static public Dictionary<int, string> getCatGroup()
+        {
+            Dictionary<int, string> group = new Dictionary<int, string>();
+            String query = "SELECT Name, IContainer FROM Container";
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+
+            while (myReader.Read())
+            {
+                group.Add(Convert.ToInt32(myReader["IContainer"]),myReader["Name"].ToString());
+            }
+
+            return group;
+        }
     }
 }

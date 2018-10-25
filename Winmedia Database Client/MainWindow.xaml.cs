@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Winmedia_Database_Client.helpers;
 
 namespace Winmedia_Database_Client
 {
@@ -26,6 +27,7 @@ namespace Winmedia_Database_Client
 
         private ConfigWindow _cfgWin;
         private ImportWindow _imWin;
+        private DBDisplay dBDisplay;
 
         TextBoxOutputter outputter;
 
@@ -37,9 +39,10 @@ namespace Winmedia_Database_Client
             outputter = new TextBoxOutputter(TestBox);
             Console.SetOut(outputter);
             Console.WriteLine("Started");
-            this.DBDisplay.Navigate(new DBDisplay(this));
+            this.dBDisplay = new DBDisplay(this);
+            this.DBDisplay.Navigate(this.dBDisplay);
             this.RightFrame.Navigate(new PlayerWindow());
-            this.CatFrame.Navigate(new CatSearch());
+            this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
             this.Show();
         }
 
