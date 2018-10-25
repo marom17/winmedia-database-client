@@ -39,6 +39,7 @@ namespace Winmedia_Database_Client
             }
             catch (Exception) {
                 MessageBox.Show("File not found!", "Error");
+                wave.Dispose();
             }
             
         }
@@ -70,7 +71,12 @@ namespace Winmedia_Database_Client
 
         public static void Dispose()
         {
-            wave.Dispose();
+            try
+            {
+                wave.Dispose();
+            }
+            catch (Exception) { }
+            
         }
 
         public static float Volume()
