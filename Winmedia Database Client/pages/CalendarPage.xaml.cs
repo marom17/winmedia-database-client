@@ -29,7 +29,7 @@ namespace Winmedia_Database_Client
             this.plShow = plShow;
 
             InitializeComponent();
-            this.PlaylistDate.SelectedDate = DateTime.Today;
+            //this.PlaylistDate.SelectedDate = DateTime.Today;
 
             for (int i = 0; i < 24; i++)
             {
@@ -47,7 +47,17 @@ namespace Winmedia_Database_Client
 
         private void PlaylistDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime date = (DateTime)this.PlaylistDate.SelectedDate;
+            DateTime date;
+            try
+            {
+                date = (DateTime)this.PlaylistDate.SelectedDate;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No default date");
+                date = DateTime.Today;
+            }
+            
 
             DBHelper.connect();
             DBHelper.getPlaylist(date, this.selectedHour);
@@ -56,7 +66,16 @@ namespace Winmedia_Database_Client
 
         private void Hour_Click(object sender, RoutedEventArgs e)
         {
-            DateTime date = (DateTime)this.PlaylistDate.SelectedDate;
+            DateTime date;
+            try
+            {
+                date = (DateTime)this.PlaylistDate.SelectedDate;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No default date");
+                date = DateTime.Today;
+            }
 
             foreach (TextBlock item in this.HourPanel.Children)
             {

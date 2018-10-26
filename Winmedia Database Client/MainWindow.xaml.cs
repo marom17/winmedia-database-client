@@ -39,11 +39,22 @@ namespace Winmedia_Database_Client
             }
             else
             {
-                this.dBDisplay = new DBDisplay(this);
-                this.DBDisplay.Navigate(this.dBDisplay);
-                this.Calendar.Navigate(new CalendarPage(this.playlistShow));
-                this.RightFrame.Navigate(new PlayerWindow());
-                this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
+                try
+                {
+                    this.dBDisplay = new DBDisplay(this);
+                    this.DBDisplay.Navigate(this.dBDisplay);
+                    Thread.Sleep(250);
+                    this.RightFrame.Navigate(new PlayerWindow());
+                    Thread.Sleep(250);
+                    this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
+                    Thread.Sleep(250);
+                    this.Calendar.Navigate(new CalendarPage(this.playlistShow));
+                }
+                catch (Exception ex) {
+                    Debug.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message);
+                }
+                
             }            
             
             this.Show();

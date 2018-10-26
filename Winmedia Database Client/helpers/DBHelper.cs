@@ -227,37 +227,47 @@ namespace Winmedia_Database_Client
         {
             List<PlaylistElement> pElements = new List<PlaylistElement>();
 
-            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = '" + date + "' AND Name = '" + hour+"';";
+            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour+"' AND Computer = 6;";
 
             Debug.WriteLine(query);
             SqlDataReader myReader = null;
             SqlCommand myCommand = new SqlCommand(query, _db);
 
+            Console.WriteLine(query);
+
             int idPlaylist = 0;
 
-            myReader = myCommand.ExecuteReader();
-
-            while (myReader.Read())
+            try
             {
-                idPlaylist = Convert.ToInt32(myReader["IPlaylist"]);
-            }
-
-            myReader.Close();
-            myCommand.Dispose();
-
-            if (idPlaylist > 0)
-            {
-                String qP = "SELECT * FROM Content WHERE Playlist = " + idPlaylist + ";";
-                myCommand = new SqlCommand(qP, _db);
                 myReader = myCommand.ExecuteReader();
 
                 while (myReader.Read())
                 {
-                    Debug.WriteLine(myReader["Media"]);
+                    idPlaylist = Convert.ToInt32(myReader["IPlaylist"]);
                 }
 
                 myReader.Close();
                 myCommand.Dispose();
+
+                if (idPlaylist > 0)
+                {
+                    String qP = "SELECT * FROM Content WHERE Playlist = " + idPlaylist + ";";
+                    myCommand = new SqlCommand(qP, _db);
+                    myReader = myCommand.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+                        Debug.WriteLine(myReader["Media"]);
+                        Console.WriteLine(myReader["Media"]);
+                    }
+
+                    myReader.Close();
+                    myCommand.Dispose();
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
             return pElements;
