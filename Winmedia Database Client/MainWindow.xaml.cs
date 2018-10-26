@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Winmedia_Database_Client.helpers;
 
 namespace Winmedia_Database_Client
 {
@@ -28,6 +27,7 @@ namespace Winmedia_Database_Client
         private ConfigWindow _cfgWin;
         private ImportWindow _imWin;
         private DBDisplay dBDisplay;
+        private PlaylistShow playlistShow = new PlaylistShow();
 
         public MainWindow()
         {
@@ -41,6 +41,7 @@ namespace Winmedia_Database_Client
             {
                 this.dBDisplay = new DBDisplay(this);
                 this.DBDisplay.Navigate(this.dBDisplay);
+                this.Calendar.Navigate(new CalendarPage(this.playlistShow));
                 this.RightFrame.Navigate(new PlayerWindow());
                 this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
             }            

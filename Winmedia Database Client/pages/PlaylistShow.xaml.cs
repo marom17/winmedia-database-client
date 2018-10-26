@@ -16,21 +16,18 @@ using System.Windows.Shapes;
 namespace Winmedia_Database_Client
 {
     /// <summary>
-    /// Logique d'interaction pour CatSearch.xaml
+    /// Interaction logic for PlaylistShow.xaml
     /// </summary>
-    public partial class CatSearch : Page
+    public partial class PlaylistShow : Page
     {
-        public CatSearch(DBDisplay dBDisplay)
+        public PlaylistShow()
         {
             InitializeComponent();
-            DBHelper.connect();
-            foreach(var item in DBHelper.getCatGroup())
-            {
-                List<object[]> cats = DBHelper.getCategories(item.Key);
-                this.CatTab.Items.Add(new CatTab(item.Value, cats, dBDisplay));
-            }
-            
-            DBHelper.disconnect();
+        }
+
+        private void PlaylistDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

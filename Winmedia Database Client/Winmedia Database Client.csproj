@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="pages\CalendarPage.xaml.cs">
+      <DependentUpon>CalendarPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="helpers\AudioDB.cs" />
     <Compile Include="helpers\AudioInfo.cs" />
     <Compile Include="helpers\CatTab.cs" />
@@ -92,11 +95,17 @@
     <Compile Include="pages\PlayerWindow.xaml.cs">
       <DependentUpon>PlayerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pages\PlaylistShow.xaml.cs">
+      <DependentUpon>PlaylistShow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Progress.xaml.cs">
       <DependentUpon>Progress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="helpers\TextBoxOutputter.cs" />
     <Compile Include="helpers\Transcoder.cs" />
+    <Page Include="pages\CalendarPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="pages\CatSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +136,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="pages\PlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\PlaylistShow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

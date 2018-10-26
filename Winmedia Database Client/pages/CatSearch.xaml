@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Winmedia_Database_Client"
       mc:Ignorable="d"
       Title="CatSearch"
-      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DesignHeight="180" d:DesignWidth="716" Name="CatWin">
+      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DesignHeight="145" d:DesignWidth="716" Name="CatWin">
 
     <Grid>
         <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="CatTab" MaxHeight="{Binding ElementName=CatWin, Path=ActualHeight}" MaxWidth="{Binding ElementName=CatWin, Path=ActualWidth}">
