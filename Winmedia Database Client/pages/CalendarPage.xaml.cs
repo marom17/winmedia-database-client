@@ -22,18 +22,19 @@ namespace Winmedia_Database_Client
     public partial class CalendarPage : Page
     {
         private PlaylistShow plShow;
-        private String selectedHour = "0h";
+        private String selectedHour = "00h";
 
         public CalendarPage(PlaylistShow plShow)
         {
             this.plShow = plShow;
 
             InitializeComponent();
+            this.PlaylistDate.SelectedDate = DateTime.Today;
 
-            for(int i = 0; i < 24; i++)
+            for (int i = 0; i < 24; i++)
             {
                 TextBlock text = new TextBlock();
-                text.Text = i + "h";
+                text.Text = String.Format("{0:00}h",i);
                 text.Background = Brushes.WhiteSmoke;
                 text.MouseLeftButtonUp += Hour_Click;
                 text.Margin = new Thickness(5,0,5,0);
@@ -46,22 +47,29 @@ namespace Winmedia_Database_Client
 
         private void PlaylistDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine(this.PlaylistDate.SelectedDate);
-            Debug.WriteLine(this.selectedHour);
+            DateTime date = (DateTime)this.PlaylistDate.SelectedDate;
+
+            DBHelper.connect();
+            DBHelper.getPlaylist(date, this.selectedHour);
+            DBHelper.disconnect();
         }
 
         private void Hour_Click(object sender, RoutedEventArgs e)
         {
-            foreach(TextBlock item in this.HourPanel.Children)
+            DateTime date = (DateTime)this.PlaylistDate.SelectedDate;
+
+            foreach (TextBlock item in this.HourPanel.Children)
             {
                 item.Background = Brushes.WhiteSmoke;
             }
 
             TextBlock block = ((TextBlock)sender);
-            Debug.WriteLine(block.Text);
             block.Background = Brushes.Gray;
-
             this.selectedHour = block.Text;
+
+            DBHelper.connect();
+            DBHelper.getPlaylist(date, this.selectedHour);
+            DBHelper.disconnect();
         }
     }
 }

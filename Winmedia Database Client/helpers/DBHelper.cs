@@ -67,6 +67,9 @@ namespace Winmedia_Database_Client
                 return (String)myReader["Folder"];
             }
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return "";
         }
 
@@ -101,6 +104,9 @@ namespace Winmedia_Database_Client
                 cats.Add(myReader["ICategory"].ToString(), myReader["Name"].ToString());
             }
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return cats;
         }
 
@@ -121,6 +127,9 @@ namespace Winmedia_Database_Client
             myReader = myCommand.ExecuteReader();
 
             getValues(myReader, musics);
+
+            myReader.Close();
+            myCommand.Dispose();
 
             return musics;
 
@@ -146,6 +155,9 @@ namespace Winmedia_Database_Client
             myReader = myCommand.ExecuteReader();
 
             getValues(myReader, musics);
+
+            myReader.Close();
+            myCommand.Dispose();
 
             return musics;
         }
@@ -186,6 +198,9 @@ namespace Winmedia_Database_Client
                 categories.Add(values);
             }
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return categories;
         }
 
@@ -203,7 +218,49 @@ namespace Winmedia_Database_Client
                 group.Add(Convert.ToInt32(myReader["IContainer"]),myReader["Name"].ToString());
             }
 
+            myReader.Close();
+            myCommand.Dispose();
             return group;
+        }
+
+        static public List<PlaylistElement> getPlaylist(DateTime date, String hour)
+        {
+            List<PlaylistElement> pElements = new List<PlaylistElement>();
+
+            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = '" + date + "' AND Name = '" + hour+"';";
+
+            Debug.WriteLine(query);
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            int idPlaylist = 0;
+
+            myReader = myCommand.ExecuteReader();
+
+            while (myReader.Read())
+            {
+                idPlaylist = Convert.ToInt32(myReader["IPlaylist"]);
+            }
+
+            myReader.Close();
+            myCommand.Dispose();
+
+            if (idPlaylist > 0)
+            {
+                String qP = "SELECT * FROM Content WHERE Playlist = " + idPlaylist + ";";
+                myCommand = new SqlCommand(qP, _db);
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    Debug.WriteLine(myReader["Media"]);
+                }
+
+                myReader.Close();
+                myCommand.Dispose();
+            }
+
+            return pElements;
         }
     }
 }

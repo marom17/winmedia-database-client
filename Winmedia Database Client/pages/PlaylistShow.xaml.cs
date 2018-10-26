@@ -24,10 +24,6 @@ namespace Winmedia_Database_Client
         {
             InitializeComponent();
         }
-
-        private void PlaylistDate_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        
     }
 }
