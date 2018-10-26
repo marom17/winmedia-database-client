@@ -166,15 +166,22 @@ namespace Winmedia_Database_Client
         {
             while (reader.Read())
             {
-                object[] values = new object[5];
-                values[0] = reader["Performer"];
-                values[1] = reader["Title"];
-                values[2] = reader["Duration"];
-                values[3] = reader["Resource"];
-                values[4] = reader["Category"];
-                Music tmp = new Music(values);
-                list.Add(tmp);
+                list.Add(musicInfo(reader));
             }
+        }
+
+        static private Music musicInfo(SqlDataReader reader)
+        {
+            object[] values = new object[5];
+            values[0] = reader["Performer"];
+            values[1] = reader["Title"];
+            values[2] = reader["Duration"];
+            values[3] = reader["Resource"];
+            values[4] = reader["Category"];
+            Music tmp = new Music(values);
+
+            return tmp;
+
         }
 
         static public List<object[]> getCategories(int group)
