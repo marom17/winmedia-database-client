@@ -23,9 +23,11 @@ namespace Winmedia_Database_Client
     {
         private PlaylistShow plShow;
         private String selectedHour = "00h";
+        private MainWindow parent;
 
-        public CalendarPage(PlaylistShow plShow)
+        public CalendarPage(PlaylistShow plShow, MainWindow parent)
         {
+            this.parent = parent;
             this.plShow = plShow;
 
             InitializeComponent();
@@ -60,7 +62,9 @@ namespace Winmedia_Database_Client
             
 
             DBHelper.connect();
-            DBHelper.getPlaylist(date, this.selectedHour);
+            List<PlaylistElement> tmp = DBHelper.getPlaylist(date, this.selectedHour);
+            this.plShow.ShowPlaylist(tmp);
+            this.parent.Focus();
             DBHelper.disconnect();
         }
 
@@ -87,7 +91,9 @@ namespace Winmedia_Database_Client
             this.selectedHour = block.Text;
 
             DBHelper.connect();
-            DBHelper.getPlaylist(date, this.selectedHour);
+            List<PlaylistElement> tmp = DBHelper.getPlaylist(date, this.selectedHour);
+            this.plShow.ShowPlaylist(tmp);
+            this.parent.Focus();
             DBHelper.disconnect();
         }
     }

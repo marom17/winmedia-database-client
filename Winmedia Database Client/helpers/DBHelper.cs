@@ -184,6 +184,24 @@ namespace Winmedia_Database_Client
 
         }
 
+        static private Music singleMusic(int id)
+        {
+            String query = _baseSearchQuery;
+            query += "WHERE IMedia = " + id + ";";
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+            myReader.Read();
+
+            Music tmp = musicInfo(myReader);
+
+            myReader.Close();
+            myCommand.Dispose();
+
+            return tmp;
+        }
+
         static public List<object[]> getCategories(int group)
         {
             List<object[]> categories = new List<object[]>();
@@ -235,12 +253,9 @@ namespace Winmedia_Database_Client
             List<PlaylistElement> pElements = new List<PlaylistElement>();
 
             String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour+"' AND Computer = 6;";
-
-            Debug.WriteLine(query);
+            
             SqlDataReader myReader = null;
             SqlCommand myCommand = new SqlCommand(query, _db);
-
-            Console.WriteLine(query);
 
             int idPlaylist = 0;
 
@@ -264,8 +279,10 @@ namespace Winmedia_Database_Client
 
                     while (myReader.Read())
                     {
-                        Debug.WriteLine(myReader["Media"]);
-                        Console.WriteLine(myReader["Media"]);
+                        int id = Convert.ToInt32(myReader["Media"]);
+                        PlaylistElement tmp = new PlaylistElement(singleMusic(id));
+
+                        pElements.Add(tmp);
                     }
 
                     myReader.Close();

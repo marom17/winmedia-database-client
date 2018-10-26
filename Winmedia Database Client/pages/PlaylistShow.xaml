@@ -9,6 +9,8 @@
       Title="PlaylistShow">
 
     <Grid>
-        
+        <ListView Name="PlList">
+            
+        </ListView>
     </Grid>
 </Page>

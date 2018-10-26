@@ -14,8 +14,8 @@ namespace Winmedia_Database_Client
         private String _title;
         private String _fileName;
         private int _fileLength;
-        private int _timeLength;
-        private int _duration;
+        private int _timeLength; //Duration in Winmedia
+        private int _duration; //Time of original file
         private int _start;
         private int _intro;
         private int _next;

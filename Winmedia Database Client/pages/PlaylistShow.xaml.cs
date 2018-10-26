@@ -24,6 +24,15 @@ namespace Winmedia_Database_Client
         {
             InitializeComponent();
         }
-        
+
+        public void ShowPlaylist(List<PlaylistElement> playlist)
+        {
+            this.PlList.Items.Clear();
+
+            foreach (var item in playlist)
+            {
+                this.PlList.Items.Add(item);
+            }
+        }        
     }
 }

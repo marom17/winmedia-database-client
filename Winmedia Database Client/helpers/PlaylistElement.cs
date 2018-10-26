@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Winmedia_Database_Client
 {
-    class PlaylistElement
+    public class PlaylistElement
     {
+        private Music music;
+
+        public PlaylistElement(Music music)
+        {
+            this.music = music;
+        }
+
+        public override string ToString()
+        {
+            return (music.Artist + "/" + music.Title);
+        }
     }
 }

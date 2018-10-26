@@ -27,7 +27,7 @@ namespace Winmedia_Database_Client
         private ConfigWindow _cfgWin;
         private ImportWindow _imWin;
         private DBDisplay dBDisplay;
-        private PlaylistShow playlistShow = new PlaylistShow();
+        private PlaylistShow playlistShow;
 
         public MainWindow()
         {
@@ -48,7 +48,10 @@ namespace Winmedia_Database_Client
                     Thread.Sleep(250);
                     this.CatFrame.Navigate(new CatSearch(this.dBDisplay));
                     Thread.Sleep(250);
-                    this.Calendar.Navigate(new CalendarPage(this.playlistShow));
+                    this.playlistShow = new PlaylistShow();
+                    this.Calendar.Navigate(new CalendarPage(this.playlistShow, this));
+                    Thread.Sleep(250);
+                    this.Playlist.Navigate(this.playlistShow);
                 }
                 catch (Exception ex) {
                     Debug.WriteLine(ex.Message);

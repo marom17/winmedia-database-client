@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Winmedia_Database_Client"
         mc:Ignorable="d"
-        Title="WinMedia Database Client" Height="660" Width="950"
+        Title="WinMedia Database Client" Height="860" Width="950"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,14 +14,16 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <Frame Content="Frame" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="148" Width="716" Name="Playlist" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
             <Button Content="Config" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Name="ConfigBut" Click="ConfigBut_Click"/>
             <Frame Content="Frame" Name="CatFrame" Margin="5,5,5,5" Height="148" Width="716" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         </StackPanel>
-        <Frame Content="Frame" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  Name="Calendar" Grid.Column="1" Grid.Row="0" Margin="5,5,5,5"/>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+        <Frame Content="Frame" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  Name="Calendar" Grid.Column="1" Grid.Row="1" Margin="5,5,5,5"/>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

@@ -24,7 +24,6 @@ namespace Winmedia_Database_Client
     {
         private Boolean ArtistAsc = false;
         private Boolean TitleAsc = false;
-        private Boolean DurationAsc = false;
         private MainWindow parent;
 
         public DBDisplay(MainWindow parent)
