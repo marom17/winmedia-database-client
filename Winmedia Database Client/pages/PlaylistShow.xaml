@@ -9,13 +9,14 @@
       Title="PlaylistShow">
 
     <Grid>
-        <ListView Name="PlList" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver">
+        <ListView Name="PlList" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver" VerticalContentAlignment="Center" HorizontalAlignment="Stretch">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Start}"/>
                     <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Performer" Width="150" DisplayMemberBinding="{Binding Performer}"/>
                     <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyTime}"/>
+                    <!--<GridViewColumn Header="Intro" Width="150" DisplayMemberBinding="{Binding Intro}"/>-->
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
@@ -27,6 +28,8 @@
                     <EventSetter Event="DragEnter" Handler="ListViewItem_DragEnter"/>
                     <EventSetter Event="DragLeave" Handler="ListViewItem_DragLeave"/>
                     <Setter Property="AllowDrop" Value="True"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>

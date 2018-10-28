@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -59,12 +61,9 @@ namespace Winmedia_Database_Client
                 Console.WriteLine("No default date");
                 date = DateTime.Today;
             }
-            
-
             DBHelper.connect();
             List<PlaylistElement> tmp = DBHelper.getPlaylist(date, this.selectedHour);
             this.plShow.ShowPlaylist(tmp);
-            this.parent.Focus();
             DBHelper.disconnect();
         }
 
@@ -80,21 +79,31 @@ namespace Winmedia_Database_Client
                 Console.WriteLine("No default date");
                 date = DateTime.Today;
             }
-
-            foreach (TextBlock item in this.HourPanel.Children)
+            this.Dispatcher.BeginInvoke((Action)(() =>
             {
-                item.Background = Brushes.WhiteSmoke;
-            }
+                foreach (TextBlock item in this.HourPanel.Children)
+                {
+                    item.Background = Brushes.WhiteSmoke;
+                }
 
-            TextBlock block = ((TextBlock)sender);
-            block.Background = Brushes.Gray;
-            this.selectedHour = block.Text;
+                TextBlock block = ((TextBlock)sender);
+                block.Background = Brushes.Gray;
+            }));
+            this.selectedHour = ((TextBlock)sender).Text;
 
             DBHelper.connect();
             List<PlaylistElement> tmp = DBHelper.getPlaylist(date, this.selectedHour);
             this.plShow.ShowPlaylist(tmp);
-            this.parent.Focus();
             DBHelper.disconnect();
+        }
+
+        private void PlaylistDate_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            UIElement originalElement = e.OriginalSource as UIElement;
+            if (originalElement is CalendarDayButton || originalElement is CalendarItem)
+            {
+                originalElement.ReleaseMouseCapture();
+            }
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Winmedia_Database_Client
 
         public void ShowPlaylist(List<PlaylistElement> playlist)
         {
+            isUpdating = true;
             this.PlList.Items.Clear();
 
             foreach (var item in playlist)
@@ -42,6 +43,8 @@ namespace Winmedia_Database_Client
                 viewItem.Content = item;
                 this.PlList.Items.Add(viewItem);
             }
+            isUpdating = false;
+            this.calculateTime();
         }
 
         private void PlList_Drop(object sender, DragEventArgs e)
@@ -194,6 +197,7 @@ namespace Winmedia_Database_Client
             }
         }
 
+        // Scroll when drag pass over
         private void PlList_DragOver(object sender, DragEventArgs e)
         {
             ListBox li = sender as ListBox;
@@ -213,6 +217,7 @@ namespace Winmedia_Database_Client
             }
         }
 
+        // Find the scroll bar of the listbox
         public static childItem FindVisualChild<childItem>(DependencyObject obj) where childItem : DependencyObject
         {
             // Search immediate children first (breadth-first)

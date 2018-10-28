@@ -9,7 +9,7 @@
       Title="CalendarPage">
     <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
         <StackPanel Orientation="Vertical">
-            <Calendar Name="PlaylistDate" SelectedDatesChanged="PlaylistDate_SelectedDatesChanged"  FirstDayOfWeek="Monday" HorizontalAlignment="Stretch"/>
+            <Calendar Name="PlaylistDate" SelectedDatesChanged="PlaylistDate_SelectedDatesChanged"  FirstDayOfWeek="Monday" HorizontalAlignment="Stretch" GotMouseCapture="PlaylistDate_GotMouseCapture"/>
             <WrapPanel Name="HourPanel" Orientation="Vertical" MaxHeight="100" HorizontalAlignment="Center"/>
         </StackPanel>
     </Border>    
