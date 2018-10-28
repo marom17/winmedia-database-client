@@ -90,7 +90,30 @@ namespace Winmedia_Database_Client
             }
             if (element != null)
             {
-
+                if (!dropOnElement || sender.GetType() == typeof(ListViewItem))
+                {
+                    if (sender.GetType() == typeof(ListViewItem))
+                    {
+                        int indexSource = this.PlList.Items.IndexOf(DragDropHelper.DragSource);
+                        int indexDest = this.PlList.Items.IndexOf(((ListViewItem)sender));
+                        this.PlList.Items.RemoveAt(indexSource);
+                        ListViewItem viewItem = new ListViewItem();
+                        viewItem.Content = element;
+                        this.PlList.Items.Insert(indexDest, viewItem);
+                    }
+                    else
+                    {
+                        int indexSource = this.PlList.Items.IndexOf(DragDropHelper.DragSource);
+                        this.PlList.Items.RemoveAt(indexSource);
+                        ListViewItem viewItem = new ListViewItem();
+                        viewItem.Content = element;
+                        this.PlList.Items.Add(viewItem);
+                    }
+                }
+                else
+                {
+                    dropOnElement = false;
+                }
             }
         }
 
