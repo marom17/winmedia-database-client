@@ -25,6 +25,7 @@ namespace Winmedia_Database_Client
         private Boolean ArtistAsc = false;
         private Boolean TitleAsc = false;
         private MainWindow parent;
+        private Boolean isDraging = false;
 
         public DBDisplay(MainWindow parent)
         {
@@ -52,12 +53,33 @@ namespace Winmedia_Database_Client
             }).Start();
         }
 
+        private void ListViewItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            isDraging = false;
+            var item = ((Music)(sender as ListViewItem).Content);
+            if (item != null)
+            {
+                PlayerWindow.LoadFile(item);
+                
+            }
+        }        
+
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var item = ((Music)(sender as ListViewItem).Content);
             if (item != null)
             {
-                PlayerWindow.LoadFile(item);
+                isDraging = true;
+                DragDropHelper.DragSource = ((ListViewItem)sender);
+            }
+        }
+
+        private void ListViewItem_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (isDraging)
+            {
+                DragDrop.DoDragDrop(DragDropHelper.DragSource, DragDropHelper.DragSource.Content, DragDropEffects.Move);
+                isDraging = false;
             }
         }
 
@@ -141,5 +163,7 @@ namespace Winmedia_Database_Client
                 parent.StartImport(files);
             }
         }
+
+        
     }
 }

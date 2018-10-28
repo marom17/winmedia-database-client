@@ -9,8 +9,8 @@
       Title="PlaylistShow">
 
     <Grid>
-        <ListView Name="PlList">
+        <ListBox Name="PlList" AllowDrop="True" Drop="PlList_Drop">
             
-        </ListView>
+        </ListBox>
     </Grid>
 </Page>

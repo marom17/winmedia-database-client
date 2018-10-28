@@ -31,8 +31,21 @@ namespace Winmedia_Database_Client
 
             foreach (var item in playlist)
             {
+                ListBoxItem boxItem = new ListBoxItem();
+                boxItem.Content = item;
                 this.PlList.Items.Add(item);
             }
-        }        
+        }
+
+        private void PlList_Drop(object sender, DragEventArgs e)
+        {
+            Music music = (Music)e.Data.GetData(typeof(Music));
+            if (music != null)
+            {
+                ListBoxItem boxItem = new ListBoxItem();
+                boxItem.Content = new PlaylistElement(music);
+                this.PlList.Items.Add(boxItem);
+            }
+        }
     }
 }
