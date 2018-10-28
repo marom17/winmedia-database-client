@@ -9,7 +9,7 @@
       Title="PlaylistShow">
 
     <Grid>
-        <ListView Name="PlList" AllowDrop="True" Drop="PlList_Drop">
+        <ListView Name="PlList" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Start}"/>
@@ -24,6 +24,8 @@
                     <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListViewItem_PreviewMouseLeftButtonUp" />
                     <EventSetter Event="MouseLeave" Handler="ListViewItem_MouseLeave" />
                     <EventSetter Event="Drop" Handler="ListViewItem_Drop"/>
+                    <EventSetter Event="DragEnter" Handler="ListViewItem_DragEnter"/>
+                    <EventSetter Event="DragLeave" Handler="ListViewItem_DragLeave"/>
                     <Setter Property="AllowDrop" Value="True"/>
                 </Style>
             </ListView.ItemContainerStyle>
