@@ -9,8 +9,24 @@
       Title="PlaylistShow">
 
     <Grid>
-        <ListBox Name="PlList" AllowDrop="True" Drop="PlList_Drop">
-            
-        </ListBox>
+        <ListView Name="PlList" AllowDrop="True" Drop="PlList_Drop">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Start}"/>
+                    <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Performer" Width="150" DisplayMemberBinding="{Binding Performer}"/>
+                    <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyTime}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListViewItem_PreviewMouseLeftButtonUp" />
+                    <EventSetter Event="MouseLeave" Handler="ListViewItem_MouseLeave" />
+                    <EventSetter Event="Drop" Handler="ListViewItem_Drop"/>
+                    <Setter Property="AllowDrop" Value="True"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Page>
