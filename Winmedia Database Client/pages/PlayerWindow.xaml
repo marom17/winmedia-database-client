@@ -7,14 +7,59 @@
       mc:Ignorable="d"
       Title="PlayerWindow" Height="335" Width="185"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Page.Resources>
+        <Style TargetType="{x:Type ProgressBar}" x:Key="{x:Type ProgressBar}">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid MinHeight="121" MinWidth="23">
+                            <Rectangle Name="PART_Track" Stroke="#888888" StrokeThickness="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Offset="0" Color="#FF00FF00"/>
+                                        <GradientStop Offset="0.9" Color="#FFFFFF00"/>
+                                        <GradientStop Offset="1" Color="#FFFF0000"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <DockPanel Margin="1">
+                                <Rectangle Name="PART_Indicator">
+                                </Rectangle>
+                                <Rectangle Name="Mask" MinWidth="{TemplateBinding Width}" Fill="#C0C0C0"/>
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Page.Content>
         <Border Background="GhostWhite" BorderBrush="Silver" BorderThickness="1" CornerRadius="8,8,3,3">
-            <Grid>            
+            <Grid>
                 <Button Content="Play" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="75" Name="Play" Click="Play_Click"/>
                 <Button Content="Stop" HorizontalAlignment="Left" Margin="103,258,0,0" VerticalAlignment="Top" Width="75" Name="Stop" Click="Stop_Click"/>
                 <Slider HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="168" Name="Time" Thumb.DragStarted="Time_DragStarted" Thumb.DragCompleted="Time_DragCompleted"/>
-                <ProgressBar HorizontalAlignment="Left" Height="121" Margin="62,10,0,0" VerticalAlignment="Top" Width="23" Orientation="Vertical" Name="LeftBar"/>
-                <ProgressBar HorizontalAlignment="Left" Height="121" Margin="103,10,0,0" VerticalAlignment="Top" Width="23" Orientation="Vertical" Name="RightBar"/>
+                <ProgressBar HorizontalAlignment="Left" Height="24" Margin="56,66,0,0" VerticalAlignment="Top" Width="121" Orientation="Vertical" Name="LeftBar" RenderTransformOrigin="0.5,0.5">
+                    <ProgressBar.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ProgressBar.RenderTransform>
+                </ProgressBar>
+                <ProgressBar HorizontalAlignment="Left" Height="24" Margin="55,138,0,0" VerticalAlignment="Top" Width="121" Orientation="Vertical" Name="RightBar">
+                    <ProgressBar.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ProgressBar.RenderTransform>
+                </ProgressBar>
                 <TextBlock HorizontalAlignment="Left" Margin="10,222,0,0" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Name="Timer" Width="165" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Margin="10,142,0,0" TextWrapping="NoWrap" Text="Artist" VerticalAlignment="Top" Width="168" MaxWidth="168" Name="TBArtiste"/>
                 <TextBlock HorizontalAlignment="Left" Margin="10,163,0,0" TextWrapping="NoWrap" Text="Title" VerticalAlignment="Top" Width="168" MaxWidth="168" Name="TBTitle"/>
