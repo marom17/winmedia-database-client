@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="helpers\DragDropHelper.cs" />
     <Compile Include="helpers\PlaylistElement.cs" />
+    <Compile Include="helpers\ShareVar.cs" />
     <Compile Include="pages\CalendarPage.xaml.cs">
       <DependentUpon>CalendarPage.xaml</DependentUpon>
     </Compile>

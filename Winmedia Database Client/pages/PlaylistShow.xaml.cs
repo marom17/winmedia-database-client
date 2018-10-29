@@ -143,6 +143,8 @@ namespace Winmedia_Database_Client
         {
             TimeSpan nextStart = new TimeSpan(0, 0, 0);
             ListView tmp = new ListView();
+            tmp.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            tmp.VerticalContentAlignment = VerticalAlignment.Stretch;
             isUpdating = true;
             foreach(ListViewItem item in this.PlList.Items)
             {
@@ -164,6 +166,7 @@ namespace Winmedia_Database_Client
                 
             }
             tmp.Items.Clear();
+            this.TxtTime.Text = nextStart.ToString();
             isUpdating = false;
         }
 

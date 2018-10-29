@@ -287,6 +287,11 @@ namespace Winmedia_Database_Client
 
                     myReader.Close();
                     myCommand.Dispose();
+                    ShareVar.IdPlaylist = idPlaylist;
+                }
+                else
+                {
+                    ShareVar.IdPlaylist = 0;
                 }
             }
             catch(Exception e)

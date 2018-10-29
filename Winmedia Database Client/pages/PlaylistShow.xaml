@@ -9,7 +9,15 @@
       Title="PlaylistShow">
 
     <Grid>
-        <ListView Name="PlList" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver" VerticalContentAlignment="Center" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
+            <Button Name="BtnSave" Content="Save"/>
+        </StackPanel>
+        <ListView Name="PlList" Grid.Row="1" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,5,0,5">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Start}"/>
@@ -33,5 +41,11 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <TextBlock Text="Temps:" FontSize="14" Margin="0,5,10,5"/>
+            <Border BorderThickness="1" BorderBrush="Black">
+                <TextBlock Name="TxtTime" Text="00:00:00" FontSize="14" Margin="5,5,5,5"/>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
