@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Winmedia_Database_Client
 {
@@ -13,7 +14,7 @@ namespace Winmedia_Database_Client
     {
         static private SqlConnection _db;
         static private String _baseSearchQuery = "SELECT TOP 1000 Performer, Title, Duration, Resource, Name as \"Category\", Category as CatId, Start, Stop,"+
-            " Introin, Introout, Fadein,  Fadeout, Jingle, JinglePosition, JingleVolume, Stretch FROM Media JOIN Path ON Path.Media = Media.IMedia " +
+            " Introin, Introout, Fadein,  Fadeout, Jingle, JinglePosition, JingleVolume, Stretch, IMedia FROM Media JOIN Path ON Path.Media = Media.IMedia " +
                 "JOIN Belong ON Belong.Media = Media.IMedia JOIN Category ON Category.ICategory = Belong.Category ";
 
         static public Boolean connect()
@@ -173,7 +174,7 @@ namespace Winmedia_Database_Client
 
         static private Music musicInfo(SqlDataReader reader)
         {
-            object[] values = new object[16];
+            object[] values = new object[17];
             values[0] = reader["Performer"];
             values[1] = reader["Title"];
             values[2] = reader["Duration"];
@@ -190,6 +191,7 @@ namespace Winmedia_Database_Client
             values[13] = reader["JinglePosition"];
             values[14] = reader["JingleVolume"];
             values[15] = reader["Stretch"];
+            values[16] = reader["IMedia"];
             Music tmp = new Music(values);
 
             return tmp;
@@ -323,6 +325,68 @@ namespace Winmedia_Database_Client
             }
 
             return pElements;
+        }
+
+        public static void savePlaylist(ItemCollection playlist)
+        {
+            String query = "DELETE FROM Content WHERE Playlist = " + ShareVar.IdPlaylist + ";";
+
+            SqlTransaction transaction = _db.BeginTransaction();
+
+
+            try
+            {
+                SqlDataReader myReader = null;
+                SqlCommand myCommand = new SqlCommand(query, _db,transaction);
+                myReader = myCommand.ExecuteReader();
+                myCommand.Dispose();
+                myReader.Close();
+
+                foreach(ListViewItem element in playlist)
+                {
+                    Music tmp = ((PlaylistElement)element.Content).Music;
+                    query = "INSERT INTO Content (Playlist,Media,Category,Duration,Start,Stop,Fadein,Fadeout,Alphain,Alphaout,Stretch,Jingle,JinglePosition,JingleVolume) " +
+                    "VALUES(@playlist,@media,@category,@duration,@start,@stop,@fadein,@fadeout,@fadein,@fadeout,@stretch,@jingle,@jinglePosition,@jingleVolume);";
+                    SqlCommand cmd = new SqlCommand(query, _db, transaction);
+
+                    cmd.Parameters.Add("@playlist", SqlDbType.Int);
+                    cmd.Parameters["@playlist"].Value = ShareVar.IdPlaylist;
+                    cmd.Parameters.Add("@media", SqlDbType.Int);
+                    cmd.Parameters["@media"].Value = tmp.MediaId;
+                    cmd.Parameters.Add("@category", SqlDbType.Int);
+                    cmd.Parameters["@category"].Value = tmp.Catid;
+                    cmd.Parameters.Add("@duration", SqlDbType.Int);
+                    cmd.Parameters["@duration"].Value = tmp.TimeLength;
+                    cmd.Parameters.Add("@start", SqlDbType.Int);
+                    cmd.Parameters["@start"].Value = tmp.Start;
+                    cmd.Parameters.Add("@stop", SqlDbType.Int);
+                    cmd.Parameters["@stop"].Value = tmp.Stop;
+                    cmd.Parameters.Add("@fadein", SqlDbType.Int);
+                    cmd.Parameters["@fadein"].Value = tmp.Fadein;
+                    cmd.Parameters.Add("@fadeout", SqlDbType.Int);
+                    cmd.Parameters["@fadeout"].Value = tmp.Fadeout;
+                    cmd.Parameters.Add("@stretch", SqlDbType.Real);
+                    cmd.Parameters["@stretch"].Value = tmp.Stretch;
+                    cmd.Parameters.Add("@jingle", SqlDbType.Int);
+                    cmd.Parameters["@jingle"].Value = tmp.Jingle;
+                    cmd.Parameters.Add("@jinglePosition", SqlDbType.Int);
+                    cmd.Parameters["@jinglePosition"].Value = tmp.Jingleposition;
+                    cmd.Parameters.Add("@jingleVolume", SqlDbType.Real);
+                    cmd.Parameters["@jingleVolume"].Value = tmp.JingleVolume;          
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Dispose();
+                    reader.Close();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                transaction.Rollback();
+            }
+
         }
     }
 }

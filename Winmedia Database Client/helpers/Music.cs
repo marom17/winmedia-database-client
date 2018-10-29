@@ -36,6 +36,7 @@ namespace Winmedia_Database_Client
         private int _jingleposition;
         private int _jingleVolume;
         private double _stretch;
+        private int _mediaId;
 
         public string FilePath { get => _filePath; set => _filePath = value; }
         public int Duration { get => _duration; set => _duration = value; }
@@ -62,6 +63,7 @@ namespace Winmedia_Database_Client
         public int Fadeout { get => _fadeout; set => _fadeout = value; }
         public double Stretch { get => _stretch; set => _stretch = value; }
         public TimeSpan PrettyIntro { get => _prettyIntro; set => _prettyIntro = value; }
+        public int MediaId { get => _mediaId; set => _mediaId = value; }
 
         public Music(object[] info)
         {
@@ -83,6 +85,7 @@ namespace Winmedia_Database_Client
             _jingleVolume = Convert.ToInt16(info[14]);
             _stretch = Convert.ToDouble(info[15]);
             _prettyIntro = new TimeSpan(0,0,(int)(_intro/1000));
+            _mediaId = (int)info[16];
 
         }
 

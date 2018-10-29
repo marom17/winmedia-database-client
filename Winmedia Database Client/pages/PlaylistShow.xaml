@@ -15,7 +15,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
+            <Button Name="BtnNew" Content="New Playlist" Click="BtnNew_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
             <Button Name="BtnRemove" Content="Remove selected music" Click="BtnRemove_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
+            <Button Name="BtnClear" Content="Clear Playlist" Click="BtnClear_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
             <Button Name="BtnSave" Content="Save Playlist" Click="BtnSave_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
             <Button Name="BtnReload" Content="Reload playlist" Click="BtnReload_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
         </StackPanel>

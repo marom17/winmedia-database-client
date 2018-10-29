@@ -61,6 +61,10 @@ namespace Winmedia_Database_Client
                 Console.WriteLine("No default date");
                 date = DateTime.Today;
             }
+
+            ShareVar.Day = date;
+            ShareVar.Hour = this.selectedHour;
+
             DBHelper.connect();
             int idPlaylist = DBHelper.getPlaylistId(date, this.selectedHour);
             List<PlaylistElement> tmp = DBHelper.getPlaylist(idPlaylist);
@@ -91,6 +95,9 @@ namespace Winmedia_Database_Client
                 block.Background = Brushes.Gray;
             }));
             this.selectedHour = ((TextBlock)sender).Text;
+
+            ShareVar.Day = date;
+            ShareVar.Hour = this.selectedHour;
 
             DBHelper.connect();
             int idPlaylist = DBHelper.getPlaylistId(date, this.selectedHour);

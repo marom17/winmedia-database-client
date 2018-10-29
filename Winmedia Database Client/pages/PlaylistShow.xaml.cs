@@ -255,7 +255,13 @@ namespace Winmedia_Database_Client
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Saving");
+            if(ShareVar.IdPlaylist != 0)
+            {
+                Console.WriteLine("Saving");
+                DBHelper.connect();
+                DBHelper.savePlaylist(this.PlList.Items);
+                DBHelper.disconnect();
+            }            
         }
 
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
@@ -275,6 +281,21 @@ namespace Winmedia_Database_Client
                 this.ShowPlaylist(DBHelper.getPlaylist(ShareVar.IdPlaylist));
                 DBHelper.disconnect();
             }
+        }
+
+        private void BtnNew_Click(object sender, RoutedEventArgs e)
+        {
+            if(ShareVar.IdPlaylist != 0)
+            {
+                MessageBox.Show("A playlist already exist for this date!","Already Exist");
+            }
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            isUpdating = true;
+            this.PlList.Items.Clear();
+            isUpdating = false;
         }
     }
 }
