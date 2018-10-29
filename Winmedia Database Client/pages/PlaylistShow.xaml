@@ -26,7 +26,7 @@
                     <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Performer" Width="150" DisplayMemberBinding="{Binding Performer}"/>
                     <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyTime}"/>
-                    <!--<GridViewColumn Header="Intro" Width="150" DisplayMemberBinding="{Binding Intro}"/>-->
+                    <GridViewColumn Header="Intro" Width="150" DisplayMemberBinding="{Binding PrettyIntro}"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

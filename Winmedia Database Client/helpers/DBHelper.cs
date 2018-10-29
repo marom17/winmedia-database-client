@@ -12,7 +12,8 @@ namespace Winmedia_Database_Client
     class DBHelper
     {
         static private SqlConnection _db;
-        static private String _baseSearchQuery = "SELECT TOP 1000 Performer, Title, Duration, Resource, Name as \"Category\" FROM Media JOIN Path ON Path.Media = Media.IMedia " +
+        static private String _baseSearchQuery = "SELECT TOP 1000 Performer, Title, Duration, Resource, Name as \"Category\", Category as CatId, Start, Stop,"+
+            " Introin, Introout, Fadein,  Fadeout, Jingle, JinglePosition, JingleVolume, Stretch FROM Media JOIN Path ON Path.Media = Media.IMedia " +
                 "JOIN Belong ON Belong.Media = Media.IMedia JOIN Category ON Category.ICategory = Belong.Category ";
 
         static public Boolean connect()
@@ -172,12 +173,23 @@ namespace Winmedia_Database_Client
 
         static private Music musicInfo(SqlDataReader reader)
         {
-            object[] values = new object[5];
+            object[] values = new object[16];
             values[0] = reader["Performer"];
             values[1] = reader["Title"];
             values[2] = reader["Duration"];
             values[3] = reader["Resource"];
             values[4] = reader["Category"];
+            values[5] = reader["CatId"];
+            values[6] = reader["Start"];
+            values[7] = reader["Stop"];
+            values[8] = reader["Introin"];
+            values[9] = reader["Introout"];
+            values[10] = reader["Fadein"];
+            values[11] = reader["Fadeout"];
+            values[12] = reader["Jingle"];
+            values[13] = reader["JinglePosition"];
+            values[14] = reader["JingleVolume"];
+            values[15] = reader["Stretch"];
             Music tmp = new Music(values);
 
             return tmp;
@@ -288,7 +300,10 @@ namespace Winmedia_Database_Client
                     while (myReader.Read())
                     {
                         int id = Convert.ToInt32(myReader["Media"]);
-                        PlaylistElement tmp = new PlaylistElement(singleMusic(id));
+                        Music mus = singleMusic(id);
+                        mus.Stretch = Convert.ToDouble(myReader["Stretch"]);
+                        PlaylistElement tmp = new PlaylistElement(mus);
+
 
                         pElements.Add(tmp);
                     }

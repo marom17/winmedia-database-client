@@ -23,6 +23,7 @@ namespace Winmedia_Database_Client
         public String Performer { get => music.Artist; }
         public String Title { get => music.Title; }
         public Music Music { get => music; }
+        public TimeSpan PrettyIntro { get => music.PrettyIntro; }
 
         public PlaylistElement(Music music)
         {
