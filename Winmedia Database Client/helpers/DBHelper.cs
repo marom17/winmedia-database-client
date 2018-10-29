@@ -248,17 +248,14 @@ namespace Winmedia_Database_Client
             return group;
         }
 
-        static public List<PlaylistElement> getPlaylist(DateTime date, String hour)
+        static public int getPlaylistId(DateTime date, String hour)
         {
-            List<PlaylistElement> pElements = new List<PlaylistElement>();
+            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour + "' AND Computer = 6;";
 
-            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour+"' AND Computer = 6;";
-            
             SqlDataReader myReader = null;
             SqlCommand myCommand = new SqlCommand(query, _db);
 
             int idPlaylist = 0;
-
             try
             {
                 myReader = myCommand.ExecuteReader();
@@ -270,11 +267,22 @@ namespace Winmedia_Database_Client
 
                 myReader.Close();
                 myCommand.Dispose();
+            }
+            catch (Exception) { }
+            return idPlaylist;
+        }
 
+        static public List<PlaylistElement> getPlaylist(int idPlaylist)
+        {
+            List<PlaylistElement> pElements = new List<PlaylistElement>();
+
+            try
+            {
                 if (idPlaylist > 0)
                 {
-                    String qP = "SELECT * FROM Content WHERE Playlist = " + idPlaylist + ";";
-                    myCommand = new SqlCommand(qP, _db);
+                    String query = "SELECT * FROM Content WHERE Playlist = " + idPlaylist + ";";
+                    SqlDataReader myReader = null;
+                    SqlCommand myCommand = new SqlCommand(query, _db);
                     myReader = myCommand.ExecuteReader();
 
                     while (myReader.Read())

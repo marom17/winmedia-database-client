@@ -62,7 +62,8 @@ namespace Winmedia_Database_Client
                 date = DateTime.Today;
             }
             DBHelper.connect();
-            List<PlaylistElement> tmp = DBHelper.getPlaylist(date, this.selectedHour);
+            int idPlaylist = DBHelper.getPlaylistId(date, this.selectedHour);
+            List<PlaylistElement> tmp = DBHelper.getPlaylist(idPlaylist);
             this.plShow.ShowPlaylist(tmp);
             DBHelper.disconnect();
         }
@@ -92,7 +93,8 @@ namespace Winmedia_Database_Client
             this.selectedHour = ((TextBlock)sender).Text;
 
             DBHelper.connect();
-            List<PlaylistElement> tmp = DBHelper.getPlaylist(date, this.selectedHour);
+            int idPlaylist = DBHelper.getPlaylistId(date, this.selectedHour);
+            List<PlaylistElement> tmp = DBHelper.getPlaylist(idPlaylist);
             this.plShow.ShowPlaylist(tmp);
             DBHelper.disconnect();
         }

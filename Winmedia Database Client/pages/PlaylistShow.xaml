@@ -15,7 +15,9 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
-            <Button Name="BtnSave" Content="Save"/>
+            <Button Name="BtnRemove" Content="Remove selected music" Click="BtnRemove_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
+            <Button Name="BtnSave" Content="Save Playlist" Click="BtnSave_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
+            <Button Name="BtnReload" Content="Reload playlist" Click="BtnReload_Click" FontFamily="18" Padding="5,5,5,5" Margin="5,0,5,0"/>
         </StackPanel>
         <ListView Name="PlList" Grid.Row="1" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,5,0,5">
             <ListView.View>

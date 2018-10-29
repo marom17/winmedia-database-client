@@ -252,5 +252,29 @@ namespace Winmedia_Database_Client
         {
             ((ListViewItem)sender).Background = Brushes.White;
         }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Saving");
+        }
+
+        private void BtnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.PlList.Items.Remove(this.PlList.SelectedItem);
+            }
+            catch (Exception) { }
+        }
+
+        private void BtnReload_Click(object sender, RoutedEventArgs e)
+        {
+            if(ShareVar.IdPlaylist > 0)
+            {
+                DBHelper.connect();
+                this.ShowPlaylist(DBHelper.getPlaylist(ShareVar.IdPlaylist));
+                DBHelper.disconnect();
+            }
+        }
     }
 }
