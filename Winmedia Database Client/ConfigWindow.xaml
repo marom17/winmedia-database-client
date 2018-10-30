@@ -45,22 +45,19 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Content="VLC Path:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="1" Content="DB Host:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="2" Content="DB Port:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="3" Content="DB User:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="4" Content="DB Pass:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="5" Content="DB Table:" VerticalAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="6" Content="Category:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="DB Host:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="DB Port:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="DB User:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="DB Pass:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="DB Table:" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="Category:" VerticalAlignment="Center"/>
 
-            <TextBox Grid.Column="1" Grid.Row="0" Name="VLCPath"/>
-            <Button Grid.Column="2" Grid.Row="0" Content="Search..." x:Name="SearchVLC" Click="SearchVLC_Click" HorizontalAlignment="Right"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Name="DBHost"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Name="DBPort"/>
-            <TextBox Grid.Column="1" Grid.Row="3" Name="DBUser"/>
-            <PasswordBox Grid.Column="1" Grid.Row="4" Name="DBPass"/>
-            <TextBox Grid.Column="1" Grid.Row="5" Name="DB"/>
-            <TextBox Grid.Column="1" Grid.Row="6" Name="Category"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Name="DBHost"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="DBPort"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Name="DBUser"/>
+            <PasswordBox Grid.Column="1" Grid.Row="3" Name="DBPass"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Name="DB"/>
+            <TextBox Grid.Column="1" Grid.Row="5" Name="Category"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
