@@ -66,9 +66,15 @@ namespace Winmedia_Database_Client
                     Debug.WriteLine(this.TextDisp.Text);
                 });
                 
-                Transcoder.Encode(file, 0);
-
-                AudioDB.ImportAudio(file);
+                if(Transcoder.Encode(file, 0))
+                {
+                    AudioDB.ImportAudio(file);
+                }
+                else
+                {
+                    MessageBox.Show(file.FileName + " fail to import!", "Import error");
+                }
+                
                 this.Dispatcher.BeginInvoke((Action)delegate () {
                     this.actual += 1;
                     this.PgBar.Value = this.actual;

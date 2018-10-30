@@ -24,9 +24,9 @@
         <ListView Name="PlList" Grid.Row="1" AllowDrop="True" Drop="PlList_Drop" DragOver="PlList_DragOver" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,5,0,5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Start}"/>
-                    <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Start" Width="150" DisplayMemberBinding="{Binding Start}"/>                    
                     <GridViewColumn Header="Performer" Width="150" DisplayMemberBinding="{Binding Performer}"/>
+                    <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Duration" Width="150" DisplayMemberBinding="{Binding PrettyTime}"/>
                     <GridViewColumn Header="Intro" Width="150" DisplayMemberBinding="{Binding PrettyIntro}"/>
                 </GridView>

@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -288,6 +289,19 @@ namespace Winmedia_Database_Client
             if(ShareVar.IdPlaylist != 0)
             {
                 MessageBox.Show("A playlist already exist for this date!","Already Exist");
+            }
+            else
+            {
+                DBHelper.connect();
+                Boolean OK = DBHelper.CreateNewPlaylist();                
+                DBHelper.disconnect();
+
+                if (OK)
+                {
+                    DBHelper.connect();
+                    ShareVar.IdPlaylist = DBHelper.getPlaylistId(ShareVar.Day,ShareVar.Hour);
+                    DBHelper.disconnect();
+                }
             }
         }
 
