@@ -20,7 +20,7 @@ namespace Winmedia_Database_Client
         private static String _importPath = "INSERT INTO dbo.Path "
             +"(Media,Extension,Directory,Resource,Length,Beat,Tick,Keys,Format,Audio,Bitrate,Sample,Channel,Frequency,Video,Pixel,Quality,Aspect,Frame,Width,Height,Size1,Size2,Modify) "
             + "VALUES (@media,0,2,@path,@length,0,0,1,2,2,384000,2,2,48000,1,1,0,0,0,0,0,@size,0,GETDATE());";
-        private static String _importCategory = "INSERT INTO dbo.Belong (Media,Beginning,Ending,Category) VALUES (@media,GETDATE(),@endDate,@cat)";
+        private static String _importCategory = "INSERT INTO dbo.Belong (Media,Beginning,Ending,Category) VALUES(@media,GETDATE(),@endDate,@cat);";
         public static void ImportAudio(Music file)
         {
             DBHelper.connect();
@@ -69,7 +69,6 @@ namespace Winmedia_Database_Client
                 command.Parameters.Add("@media", SqlDbType.Int);
                 command.Parameters["@media"].Value = mediaId;
                 command.Parameters.Add("@path", SqlDbType.NVarChar);
-                //command.Parameters["@path"].Value = file.FilePath;
                 command.Parameters["@path"].Value = file.FileName;
                 command.Parameters.Add("@length", SqlDbType.Int);
                 command.Parameters["@length"].Value = file.Duration;
@@ -98,6 +97,7 @@ namespace Winmedia_Database_Client
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 Debug.WriteLine(ex.Message);
             }
 

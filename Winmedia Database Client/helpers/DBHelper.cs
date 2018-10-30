@@ -6,13 +6,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Winmedia_Database_Client
 {
     class DBHelper
     {
         static private SqlConnection _db;
-        static private String _baseSearchQuery = "SELECT TOP 1000 Performer, Title, Duration, Resource, Name as \"Category\" FROM Media JOIN Path ON Path.Media = Media.IMedia " +
+        static private String _baseSearchQuery = "SELECT TOP 1000 Performer, Title, Duration, Resource, Name as \"Category\", Category as CatId, Start, Stop," +
+            " Introin, Introout, Fadein,  Fadeout, Jingle, JinglePosition, JingleVolume, Stretch, IMedia FROM Media JOIN Path ON Path.Media = Media.IMedia " +
                 "JOIN Belong ON Belong.Media = Media.IMedia JOIN Category ON Category.ICategory = Belong.Category ";
 
         static public Boolean connect()
@@ -67,6 +69,9 @@ namespace Winmedia_Database_Client
                 return (String)myReader["Folder"];
             }
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return "";
         }
 
@@ -101,6 +106,9 @@ namespace Winmedia_Database_Client
                 cats.Add(myReader["ICategory"].ToString(), myReader["Name"].ToString());
             }
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return cats;
         }
 
@@ -122,6 +130,9 @@ namespace Winmedia_Database_Client
 
             getValues(myReader, musics);
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return musics;
 
 
@@ -133,9 +144,9 @@ namespace Winmedia_Database_Client
 
             String query = _baseSearchQuery;
 
-            if(search != "")
+            if (search != "")
             {
-                query += "WHERE Performer LIKE '%"+search+"%' OR Title LIKE '%"+search+"%' ";
+                query += "WHERE Performer LIKE '%" + search + "%' OR Title LIKE '%" + search + "%' ";
             }
 
             query += "ORDER BY IMedia DESC;";
@@ -147,6 +158,9 @@ namespace Winmedia_Database_Client
 
             getValues(myReader, musics);
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return musics;
         }
 
@@ -154,15 +168,52 @@ namespace Winmedia_Database_Client
         {
             while (reader.Read())
             {
-                object[] values = new object[5];
-                values[0] = reader["Performer"];
-                values[1] = reader["Title"];
-                values[2] = reader["Duration"];
-                values[3] = reader["Resource"];
-                values[4] = reader["Category"];
-                Music tmp = new Music(values);
-                list.Add(tmp);
+                list.Add(musicInfo(reader));
             }
+        }
+
+        static private Music musicInfo(SqlDataReader reader)
+        {
+            object[] values = new object[17];
+            values[0] = reader["Performer"];
+            values[1] = reader["Title"];
+            values[2] = reader["Duration"];
+            values[3] = reader["Resource"];
+            values[4] = reader["Category"];
+            values[5] = reader["CatId"];
+            values[6] = reader["Start"];
+            values[7] = reader["Stop"];
+            values[8] = reader["Introin"];
+            values[9] = reader["Introout"];
+            values[10] = reader["Fadein"];
+            values[11] = reader["Fadeout"];
+            values[12] = reader["Jingle"];
+            values[13] = reader["JinglePosition"];
+            values[14] = reader["JingleVolume"];
+            values[15] = reader["Stretch"];
+            values[16] = reader["IMedia"];
+            Music tmp = new Music(values);
+
+            return tmp;
+
+        }
+
+        static private Music singleMusic(int id)
+        {
+            String query = _baseSearchQuery;
+            query += "WHERE IMedia = " + id + ";";
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            myReader = myCommand.ExecuteReader();
+            myReader.Read();
+
+            Music tmp = musicInfo(myReader);
+
+            myReader.Close();
+            myCommand.Dispose();
+
+            return tmp;
         }
 
         static public List<object[]> getCategories(int group)
@@ -186,6 +237,9 @@ namespace Winmedia_Database_Client
                 categories.Add(values);
             }
 
+            myReader.Close();
+            myCommand.Dispose();
+
             return categories;
         }
 
@@ -200,10 +254,193 @@ namespace Winmedia_Database_Client
 
             while (myReader.Read())
             {
-                group.Add(Convert.ToInt32(myReader["IContainer"]),myReader["Name"].ToString());
+                group.Add(Convert.ToInt32(myReader["IContainer"]), myReader["Name"].ToString());
             }
 
+            myReader.Close();
+            myCommand.Dispose();
             return group;
+        }
+
+        static public int getPlaylistId(DateTime date, String hour)
+        {
+            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour + "';";
+
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand(query, _db);
+
+            int idPlaylist = 0;
+            try
+            {
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    idPlaylist = Convert.ToInt32(myReader["IPlaylist"]);
+                }
+
+                myReader.Close();
+                myCommand.Dispose();
+            }
+            catch (Exception) { }
+            return idPlaylist;
+        }
+
+        static public List<PlaylistElement> getPlaylist(int idPlaylist)
+        {
+            List<PlaylistElement> pElements = new List<PlaylistElement>();
+
+            try
+            {
+                if (idPlaylist > 0)
+                {
+                    String query = "SELECT * FROM Content WHERE Playlist = " + idPlaylist + ";";
+                    SqlDataReader myReader = null;
+                    SqlCommand myCommand = new SqlCommand(query, _db);
+                    myReader = myCommand.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+                        int id = Convert.ToInt32(myReader["Media"]);
+                        Music mus = singleMusic(id);
+                        mus.Stretch = Convert.ToDouble(myReader["Stretch"]);
+                        PlaylistElement tmp = new PlaylistElement(mus);
+
+
+                        pElements.Add(tmp);
+                    }
+
+                    myReader.Close();
+                    myCommand.Dispose();
+                    ShareVar.IdPlaylist = idPlaylist;
+                }
+                else
+                {
+                    ShareVar.IdPlaylist = 0;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return pElements;
+        }
+
+        public static void savePlaylist(ItemCollection playlist)
+        {
+            String query = "DELETE FROM Content WHERE Playlist = " + ShareVar.IdPlaylist + ";";
+
+            SqlTransaction transaction = _db.BeginTransaction();
+
+
+            try
+            {
+                SqlDataReader myReader = null;
+                SqlCommand myCommand = new SqlCommand(query, _db, transaction);
+                myReader = myCommand.ExecuteReader();
+                myCommand.Dispose();
+                myReader.Close();
+
+                foreach (ListViewItem element in playlist)
+                {
+                    Music tmp = ((PlaylistElement)element.Content).Music;
+                    query = "INSERT INTO Content (Playlist,Media,Category,Duration,Start,Stop,Fadein,Fadeout,Alphain,Alphaout,Stretch,Jingle,JinglePosition,JingleVolume) " +
+                    "VALUES(@playlist,@media,@category,@duration,@start,@stop,@fadein,@fadeout,@fadein,@fadeout,@stretch,@jingle,@jinglePosition,@jingleVolume);";
+                    SqlCommand cmd = new SqlCommand(query, _db, transaction);
+
+                    cmd.Parameters.Add("@playlist", SqlDbType.Int);
+                    cmd.Parameters["@playlist"].Value = ShareVar.IdPlaylist;
+                    cmd.Parameters.Add("@media", SqlDbType.Int);
+                    cmd.Parameters["@media"].Value = tmp.MediaId;
+                    cmd.Parameters.Add("@category", SqlDbType.Int);
+                    cmd.Parameters["@category"].Value = tmp.Catid;
+                    cmd.Parameters.Add("@duration", SqlDbType.Int);
+                    cmd.Parameters["@duration"].Value = tmp.TimeLength;
+                    cmd.Parameters.Add("@start", SqlDbType.Int);
+                    cmd.Parameters["@start"].Value = tmp.Start;
+                    cmd.Parameters.Add("@stop", SqlDbType.Int);
+                    cmd.Parameters["@stop"].Value = tmp.Stop;
+                    cmd.Parameters.Add("@fadein", SqlDbType.Int);
+                    cmd.Parameters["@fadein"].Value = tmp.Fadein;
+                    cmd.Parameters.Add("@fadeout", SqlDbType.Int);
+                    cmd.Parameters["@fadeout"].Value = tmp.Fadeout;
+                    cmd.Parameters.Add("@stretch", SqlDbType.Real);
+                    cmd.Parameters["@stretch"].Value = tmp.Stretch;
+                    cmd.Parameters.Add("@jingle", SqlDbType.Int);
+                    cmd.Parameters["@jingle"].Value = tmp.Jingle;
+                    cmd.Parameters.Add("@jinglePosition", SqlDbType.Int);
+                    cmd.Parameters["@jinglePosition"].Value = tmp.Jingleposition;
+                    cmd.Parameters.Add("@jingleVolume", SqlDbType.Real);
+                    cmd.Parameters["@jingleVolume"].Value = tmp.JingleVolume;
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Dispose();
+                    reader.Close();
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                transaction.Rollback();
+            }
+
+        }
+
+        public static Boolean CreateNewPlaylist()
+        {
+            String query = "INSERT INTO Playlist (Station, Day, Slot, Sheet,Computer,Modify) VALUES(2,@day,@slot,0,6,GETDATE());";
+            String slot = "SELECT ISlot FROM Slot WHERE Name = @slotName;";
+            int slotId = 0;
+
+            SqlTransaction transaction = _db.BeginTransaction();
+
+
+            try
+            {
+                SqlDataReader myReader = null;
+                SqlCommand myCommand = new SqlCommand(slot, _db, transaction);
+
+                myCommand.Parameters.Add("@slotName",SqlDbType.NVarChar);
+                myCommand.Parameters["@slotName"].Value = ShareVar.Hour;
+
+                myReader = myCommand.ExecuteReader();
+
+                while (myReader.Read())
+                {
+                    slotId = (int)myReader["ISlot"];
+                }
+                myCommand.Dispose();
+                myReader.Close();
+
+                if(slotId == 0)
+                {
+                    throw new Exception("No slot");
+                }
+
+                myCommand = new SqlCommand(query, _db, transaction);
+
+                myCommand.Parameters.Add("@day", SqlDbType.DateTime);
+                myCommand.Parameters["@day"].Value = ShareVar.Day;
+                myCommand.Parameters.Add("@slot", SqlDbType.Int);
+                myCommand.Parameters["@slot"].Value = slotId;
+
+                myReader = myCommand.ExecuteReader();
+                myCommand.Dispose();
+                myReader.Close();
+
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                transaction.Rollback();
+                return false;
+            }
+
+            return true;
         }
     }
 }

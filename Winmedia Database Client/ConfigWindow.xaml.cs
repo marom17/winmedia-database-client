@@ -23,7 +23,6 @@ namespace Winmedia_Database_Client
         public ConfigWindow()
         {
             InitializeComponent();
-            this.VLCPath.Text = Config.VlcPath;
             this.DBHost.Text = Config.DBHost;
             this.DBPort.Text = Config.DBPort;
             this.DBUser.Text = Config.DBUser;
@@ -32,16 +31,6 @@ namespace Winmedia_Database_Client
             this.Category.Text = Config.Category;
 
             this.Show();
-        }
-
-        private void SearchVLC_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "VLC|vlc.exe";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                this.VLCPath.Text = openFileDialog.FileName;
-            }
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

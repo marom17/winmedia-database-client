@@ -12,7 +12,7 @@ namespace Winmedia_Database_Client
 {
     internal class Transcoder
     {
-        private static String[] _options = { "--no-repeat --no-loop -I dummy \"", "\" vlc://quit --sout=#transcode{acodec=mp2,ab=384,samplerate=48000,channels=2}:standard{access=file,mux=ts,dst=\"", "\" }" };
+        private static String[] _options = { "-i  \"", "\" -vn -ar 48000 -ac 2 -ab 384k -f mp2 \"", "\"" };
 
         public static Boolean Encode(Music file, int attempts)
         {
@@ -33,7 +33,7 @@ namespace Winmedia_Database_Client
             // Enter in the command line arguments, everything you would enter after the executable name itself
             start.Arguments = arg;
             // Enter the executable to run, including the complete path
-            start.FileName = Config.VlcPath;
+            start.FileName = Config.FfmpegPath;
             // Do you want to show a console window?
             start.WindowStyle = ProcessWindowStyle.Hidden;
             start.CreateNoWindow = true;
