@@ -16,7 +16,7 @@ namespace Winmedia_Database_Client
         private static String _confPath = @"./config";
         private static String _FilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+"\\import\\";
 
-        private static String _VlcPath;
+        private static String _FfmpegPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"./ffmpeg/ffmpeg.exe";
         private static String _DBHost;
         private static String _DBPort;
         private static String _DBUser;
@@ -29,10 +29,10 @@ namespace Winmedia_Database_Client
 
         private static String[] _format = { ".mp3",".flac",".mp2",".wav",".ogg",".sam"};
 
-        public static String VlcPath
+        public static String FfmpegPath
         {
-            get { return _VlcPath; }
-            set { _VlcPath = value; }
+            get { return _FfmpegPath; }
+            set { _FfmpegPath = value; }
         }
 
         public static String DBHost
@@ -96,8 +96,7 @@ namespace Winmedia_Database_Client
                     var config = r.ReadToEnd();
                     Dictionary<String, String> items = JsonConvert.DeserializeObject<Dictionary<String, String>>(config);
                     r.Close();
-
-                    _VlcPath = items["VlcPath"];
+                    
                     _DBHost = items["DBHost"];
                     _DBPort = items["DBPort"];
                     _DBUser = items["DBUser"];
@@ -121,7 +120,6 @@ namespace Winmedia_Database_Client
             catch (FileNotFoundException)
             {
                 Dictionary<String, String> config = new Dictionary<string, string>();
-                config.Add("VlcPath", "");
                 config.Add("DBHost", "");
                 config.Add("DBPort", "");
                 config.Add("DBUser", "");
@@ -139,7 +137,6 @@ namespace Winmedia_Database_Client
 
         public static void saveConfig(ConfigWindow configWindow)
         {
-            _VlcPath = configWindow.VLCPath.Text;
             _DBHost = configWindow.DBHost.Text;
             _DBPort = configWindow.DBPort.Text;
             _DBUser = configWindow.DBUser.Text;
@@ -148,7 +145,6 @@ namespace Winmedia_Database_Client
             _Category = configWindow.Category.Text;
 
             Dictionary<String, String> config = new Dictionary<string, string>();
-            config.Add("VlcPath", _VlcPath);
             config.Add("DBHost", _DBHost);
             config.Add("DBPort", _DBPort);
             config.Add("DBUser", _DBUser);

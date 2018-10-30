@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Winmedia_Database_Client.helpers
+namespace Winmedia_Database_Client
 {
     class CatTab: TabItem
     {
@@ -27,7 +27,7 @@ namespace Winmedia_Database_Client.helpers
             WrapPanel grid = new WrapPanel();
             grid.Orientation = Orientation.Vertical;
             grid.Background = Brushes.LightGray;
-            grid.MaxHeight = 160;
+            grid.MaxHeight = 145;
 
             scroll.Content = grid;
             foreach (var item in cat)

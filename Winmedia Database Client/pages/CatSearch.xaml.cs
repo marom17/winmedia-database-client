@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Winmedia_Database_Client.helpers;
 
 namespace Winmedia_Database_Client
 {
