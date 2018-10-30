@@ -69,7 +69,6 @@ namespace Winmedia_Database_Client
                 command.Parameters.Add("@media", SqlDbType.Int);
                 command.Parameters["@media"].Value = mediaId;
                 command.Parameters.Add("@path", SqlDbType.NVarChar);
-                //command.Parameters["@path"].Value = file.FilePath;
                 command.Parameters["@path"].Value = file.FileName;
                 command.Parameters.Add("@length", SqlDbType.Int);
                 command.Parameters["@length"].Value = file.Duration;
@@ -78,8 +77,6 @@ namespace Winmedia_Database_Client
                 command.ExecuteNonQuery();
 
                 command.Dispose();
-
-                Console.WriteLine("Import belong");
 
                 var pathId = DBHelper.getLastId("dbo.Path", "IPath");
 
