@@ -264,7 +264,7 @@ namespace Winmedia_Database_Client
 
         static public int getPlaylistId(DateTime date, String hour)
         {
-            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour + "';";
+            String query = "SELECT IPlaylist, Day FROM Playlist JOIN Slot ON ISlot = Slot WHERE Day = CONVERT(datetime,'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "') AND Name = '" + hour + "' AND Sheet = 0;";
 
             SqlDataReader myReader = null;
             SqlCommand myCommand = new SqlCommand(query, _db);
