@@ -119,7 +119,7 @@ namespace Winmedia_Database_Client
             String query = _baseSearchQuery;
             if (cat >= 1)
             {
-                query += "WHERE ICategory = " + cat + " ";
+                query += "WHERE ICategory = " + cat + " AND Ending >= GETDATE() AND Beginning <= GETDATE() ";
             }
             query += "ORDER BY IMedia DESC;";
 
@@ -146,7 +146,7 @@ namespace Winmedia_Database_Client
 
             if (search != "")
             {
-                query += "WHERE Performer LIKE '%" + search + "%' OR Title LIKE '%" + search + "%' ";
+                query += "WHERE (Performer LIKE '%" + search + "%' OR Title LIKE '%" + search + "%') AND Ending >= GETDATE() AND Beginning <=GETDATE() ";
             }
 
             query += "ORDER BY IMedia DESC;";

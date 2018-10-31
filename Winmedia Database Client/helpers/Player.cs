@@ -24,10 +24,13 @@ namespace Winmedia_Database_Client
             catch (NullReferenceException) { }
             try
             {
+                Console.WriteLine(path.ToString());
                 audioFile = new AudioFileReader(path.ToString());
                 wave.Init(audioFile);
             }
-            catch (Exception) { }
+            catch (Exception e) {
+                Console.WriteLine(e.Message);
+            }
             
         }
 
@@ -37,7 +40,8 @@ namespace Winmedia_Database_Client
             {
                 wave.Play();
             }
-            catch (Exception) {
+            catch (Exception e) {
+                Console.WriteLine(e.Message);
                 MessageBox.Show("File not found!", "Error");
                 wave.Dispose();
             }
