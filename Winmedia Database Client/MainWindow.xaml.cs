@@ -28,6 +28,7 @@ namespace Winmedia_Database_Client
         private ImportWindow _imWin;
         private DBDisplay dBDisplay;
         private PlaylistShow playlistShow;
+        private EditAudioWindow editAudio;
 
         public MainWindow()
         {
@@ -41,6 +42,7 @@ namespace Winmedia_Database_Client
             {
                 try
                 {
+                    /*
                     this.dBDisplay = new DBDisplay(this);
                     this.DBDisplay.Navigate(this.dBDisplay);
                     Thread.Sleep(250);
@@ -51,7 +53,8 @@ namespace Winmedia_Database_Client
                     this.playlistShow = new PlaylistShow();
                     this.Calendar.Navigate(new CalendarPage(this.playlistShow, this));
                     Thread.Sleep(250);
-                    this.Playlist.Navigate(this.playlistShow);
+                    this.Playlist.Navigate(this.playlistShow);*/
+                    this.editAudio = new EditAudioWindow();
                 }
                 catch (Exception ex) {
                     Debug.WriteLine(ex.Message);
@@ -74,6 +77,12 @@ namespace Winmedia_Database_Client
             try
             {
                 _imWin.Close();
+            }
+            catch (Exception) { }
+
+            try
+            {
+                editAudio.Close();
             }
             catch (Exception) { }
 
