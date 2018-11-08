@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winmedia Database Client", "Winmedia Database Client.csproj", "{58B390F6-E628-448A-B125-338754B3BFFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFSoundVisualizationLib", "..\WPFSoundVisualizationLibrary\WPFSoundVisualizationLib.csproj", "{90F96222-1C39-4A19-ABE8-1B00FB330985}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{58B390F6-E628-448A-B125-338754B3BFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58B390F6-E628-448A-B125-338754B3BFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58B390F6-E628-448A-B125-338754B3BFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F96222-1C39-4A19-ABE8-1B00FB330985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F96222-1C39-4A19-ABE8-1B00FB330985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F96222-1C39-4A19-ABE8-1B00FB330985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F96222-1C39-4A19-ABE8-1B00FB330985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
